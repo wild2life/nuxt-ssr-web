@@ -1,22 +1,22 @@
 <template>
   <div class="index-container">
-    <!-- <div class="banner-wrapper">
-    <div class="banner flex justify-between">
-      <div class="banner-left">
-        <img src="~/assets/image/banner.png" alt="" />
-      </div>
-      <div class="banner-right flex margin-left-sm">
-        <div class="flex flex-direction justify-between">
-          <img src="~/assets/image/banner1.png" alt="" />
-          <img src="~/assets/image/banner2.png" alt="" />
+    <div class="banner-wrapper">
+      <div class="banner flex justify-between">
+        <div class="banner-left">
+          <img src="~/assets/image/banner.png" alt="" />
         </div>
-        <div class="flex flex-direction justify-between margin-left-sm">
-          <img src="~/assets/image/banner3.png" alt="" />
-          <img src="~/assets/image/banner4.png" alt="" />
+        <div class="banner-right flex margin-left-sm">
+          <div class="flex flex-direction justify-between">
+            <img src="~/assets/image/banner1.png" alt="" />
+            <img src="~/assets/image/banner2.png" alt="" />
+          </div>
+          <div class="flex flex-direction justify-between margin-left-sm">
+            <img src="~/assets/image/banner3.png" alt="" />
+            <img src="~/assets/image/banner4.png" alt="" />
+          </div>
         </div>
       </div>
     </div>
-  </div> -->
     <div class="index-info flex margin-top-lg justify-between">
       <div class="index-info-left">
         <div class="index-info-left-tab">
@@ -30,8 +30,7 @@
             </el-tab-pane>
           </el-tabs>
         </div>
-
-        <div class="index-info-left-card flex">
+        <div class="index-info-left-card flex flex-wrap flex-sub">
           <InfoCard
             v-for="(item, index) in data"
             :key="index"
@@ -42,6 +41,10 @@
       </div>
       <div class="index-info-right margin-left-lg">
         <NewsCard :data="list1"></NewsCard>
+        <HotList class="margin-top-lg"></HotList>
+        <HotSearchWords :data="list1" class="margin-top-lg"></HotSearchWords>
+        <HotTopics :data="list1" class="margin-top-lg"></HotTopics>
+        <PopularVideos :data="list1" class="margin-top-lg"></PopularVideos>
       </div>
     </div>
   </div>
@@ -147,6 +150,42 @@ export default {
           date: '20小时之前',
         },
       ],
+      list2: [
+        {
+          name: '青岛首家星巴克啡快概念店开业',
+          date: '20小时之前',
+        },
+        {
+          name: '跨境物流综合服务商“运无界”完成千万元 融资',
+          date: '20小时之前',
+        },
+        {
+          name: 'AI大分子药物研发企业“信华生物”获亿元 pre-A轮融资',
+          date: '20小时之前',
+        },
+        {
+          name: '新东方被强制执行',
+          date: '20小时之前',
+        },
+      ],
+      list3: [
+        {
+          name: '新消费',
+          id: 1,
+        },
+        {
+          name: '新国潮产业',
+          id: 2,
+        },
+        {
+          name: '消费升级',
+          id: 3,
+        },
+        {
+          name: '茅台',
+          id: 4,
+        },
+      ],
     }
   },
   head() {
@@ -207,10 +246,6 @@ export default {
   }
   &-right {
     width: 390px;
-  }
-  &-left-card {
-    flex-wrap: wrap;
-    flex: 1;
   }
 }
 </style>

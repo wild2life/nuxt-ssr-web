@@ -3,7 +3,10 @@
     <section class="header-wrapper">
       <Header></Header>
     </section>
-    <section class="main-section">
+    <section
+      class="main-section"
+      :class="{ 'video-main-section': isVideoDetail }"
+    >
       <router-view></router-view>
     </section>
     <section class="footer-wrapper">
@@ -22,38 +25,7 @@ export default {
   },
   data() {
     return {
-      activeName: '',
-      inputVal: '',
-      list: [
-        {
-          label: '资讯',
-          name: 'info',
-        },
-        {
-          label: '快讯',
-          name: 'news',
-        },
-        {
-          label: '数据',
-          name: 'data',
-        },
-        {
-          label: '视频',
-          name: 'video',
-        },
-        {
-          label: '专题',
-          name: 'topic',
-        },
-        {
-          label: '活动',
-          name: 'activity',
-        },
-        {
-          label: '关于我们',
-          name: 'about',
-        },
-      ],
+      // isVideoDetail: false
     }
   },
   computed: {
@@ -63,14 +35,15 @@ export default {
     isMobile() {
       return this.device === 'mobile'
     },
+    isVideoDetail() {
+      return this.$route.name === 'video-detail'
+    },
   },
   created() {
     this.handleScreenResize()
+    console.log(this.$route.name, 'this.$route.name')
   },
   methods: {
-    handleClick(tab, event) {
-      this.$router.push({ path: tab.name || '/' })
-    },
     handleScreenResize() {
       if (process.client) {
         const width = document.body.clientWidth
@@ -93,15 +66,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-::v-deep .el-tabs__nav-wrap::after {
-  background: transparent;
-}
-::v-deep .el-tabs__header {
-  margin-bottom: 0;
-}
-.el-tabs__item {
-  font-size: 19px;
-}
 .vaw-main-layout-container {
   height: 100%;
 }
@@ -126,13 +90,17 @@ export default {
   width: $container-width;
   margin: 0 auto;
 }
+.video-main-section {
+  width: 100%;
+  background: #1e1e1e;
+}
 .main-section {
   flex: 1;
   display: flex;
   min-height: calc(100% - #{$footer-height} - #{$menu-height});
 }
 .footer-wrapper {
-  background: #fff;
-  height: $footer-height;
+  background: #f8f8f8;
+  // height: $footer-height;
 }
 </style>

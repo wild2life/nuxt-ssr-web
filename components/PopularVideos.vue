@@ -3,7 +3,7 @@
     <div class="news-card-header flex justify-between align-center">
       <p class="title flex align-center text-xl">
         <img src="~/assets/image/news.png" />
-        快讯
+        热门视频
       </p>
       <span class="text-lg">查看更多<i class="el-icon-arrow-right"></i></span>
     </div>
@@ -23,7 +23,7 @@
 </template>
 <script>
 export default {
-  name: 'InfoCard',
+  name: 'PopularVideos',
   props: {
     data: {
       type: Array,

@@ -992,3 +992,7 @@ body {
 .dashed-left::after {
   border-left: 1px dashed #ddd;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}

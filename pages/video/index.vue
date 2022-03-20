@@ -1,43 +1,27 @@
 <template>
-  <div class="index-container padding-bottom-lg">
-    <div class="index-info flex margin-top-lg justify-between">
-      <div class="index-info-left">
-        <div class="index-info-left-tab">
-          <el-tabs v-model="activeName">
-            <el-tab-pane
-              v-for="item in list"
-              :key="item"
-              :label="item"
-              :name="item"
-            >
-            </el-tab-pane>
-          </el-tabs>
-        </div>
-        <div class="index-info-left-card flex">
-          <InfoCard
+  <div class="video-container padding-bottom-lg">
+    <div class="video-info flex justify-between">
+      <div class="video-info-left">
+        <div class="video-info-left-card flex">
+          <VideoCard
             v-for="(item, index) in data"
             :key="index"
             :data="item"
             :style="{ marginRight: (index + 1) % 3 ? '20px' : '0' }"
-          ></InfoCard>
+          ></VideoCard>
         </div>
       </div>
-      <div class="index-info-right margin-left-lg">
-        <NewsCard :data="list1"></NewsCard>
-        <HotList class="margin-top-lg"></HotList>
-        <HotSearchWords :data="list1" class="margin-top-lg"></HotSearchWords>
-        <HotTopics :data="list1" class="margin-top-lg"></HotTopics>
+      <div class="video-info-right margin-left-lg">
         <PopularVideos :data="list1" class="margin-top-lg"></PopularVideos>
+        <HotList class="margin-top-lg"></HotList>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-// import { mapState } from 'vuex'
-
 export default {
-  name: 'InfoPage',
+  name: 'VideoPage',
   layout: 'default',
   data() {
     return {
@@ -173,59 +157,18 @@ export default {
   },
   head() {
     return {
-      title: '资讯',
+      title: '视频',
     }
   },
 }
 </script>
 <style lang="scss" scoped>
-.index-container {
+.video-container {
   width: 100vw;
 }
-.banner-wrapper {
-  padding: 20px 0;
-}
-.banner {
-  height: 400px;
-  .banner-left {
-    flex-basis: 60%;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-  .banner-right {
-    flex-basis: 40%;
-    img {
-      height: 194px;
-      width: calc(50% - 10px);
-      display: inline-block;
-    }
-  }
-}
-.index-info {
-  &-left-tab {
-    width: 790px;
-    background-color: $primary-color;
-    padding-left: 30px;
-    border-radius: 7px;
-    padding-top: 5px;
-    height: 56px;
-    box-sizing: border-box;
-  }
+.video-info {
   &-left {
     width: 790px;
-    ::v-deep .el-tabs__header {
-      margin-bottom: 0;
-      .el-tabs__item {
-        color: #fff;
-        font-weight: normal;
-        font-size: 17px;
-      }
-      .el-tabs__active-bar.is-top {
-        background-color: #fff;
-      }
-    }
   }
   &-right {
     width: 390px;
