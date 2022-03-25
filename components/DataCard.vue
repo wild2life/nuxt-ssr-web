@@ -1,6 +1,6 @@
 <template>
   <div class="data-card-wrapper">
-    <div :key="index" class="data-card flex" v-for="(item, index) in data">
+    <div v-for="(item, index) in data" :key="index" class="data-card flex">
       <div class="data-card-left">
         <img :src="item.img" alt="" />
       </div>
@@ -9,7 +9,7 @@
           <span class="tips flex align-center justify-center">原创</span>
           {{ item.title }}
         </div>
-        <div class="main text-df">
+        <div class="main text-df text-cut-l3">
           {{ item.mian }}
         </div>
         <div class="date text-df flex align-center">
@@ -106,16 +106,16 @@ export default {
       }
       .main {
         line-height: 30px;
-        color: #999;
-        text-overflow: -o-ellipsis-lastline;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
+        color: $gray-color;
+        // text-overflow: -o-ellipsis-lastline;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // display: -webkit-box;
+        // -webkit-line-clamp: 3;
+        // -webkit-box-orient: vertical;
       }
       .date {
-        color: #999;
+        color: $gray-color;
         img {
           width: 68px;
           height: 23px;

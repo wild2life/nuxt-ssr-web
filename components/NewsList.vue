@@ -34,7 +34,7 @@ export default {
     margin-right: 15px;
   }
   .time {
-    color: #999;
+    color: $gray-color;
   }
   .title {
     color: #2a2a2a;

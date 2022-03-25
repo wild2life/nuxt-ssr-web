@@ -1,12 +1,16 @@
 <template>
   <div class="news-card-wrapper">
-    <div class="news-card-header flex justify-between align-center">
+    <CommonCardHeader
+      title="24小时热榜"
+      :src="require('~/assets/image/news.png')"
+    ></CommonCardHeader>
+    <!-- <div class="news-card-header flex justify-between align-center">
       <p class="title flex align-center text-xl">
         <img src="~/assets/image/news.png" />
         24小时热榜
       </p>
       <span class="text-lg">查看更多<i class="el-icon-arrow-right"></i></span>
-    </div>
+    </div> -->
     <div class="news-card-cont">
       <div>
         <div class="first">
@@ -91,20 +95,20 @@ export default {
   border-radius: 4px;
   box-shadow: 0 6px 24px rgb(38 38 38 / 6%);
   padding: 10px;
-  .news-card-header {
-    display: flex;
-    border-bottom: 2px solid #f8f8f8;
-    height: 60px;
-    img {
-      width: 30px;
-      height: 30px;
-      margin: 0 4px;
-      display: inline-block;
-    }
-    span {
-      color: #666;
-    }
-  }
+  // .news-card-header {
+  //   display: flex;
+  //   border-bottom: 2px solid #f8f8f8;
+  //   height: 60px;
+  //   img {
+  //     width: 30px;
+  //     height: 30px;
+  //     margin: 0 4px;
+  //     display: inline-block;
+  //   }
+  //   span {
+  //     color: #666;
+  //   }
+  // }
   .news-card-cont {
     padding: 15px 20px;
     .first {

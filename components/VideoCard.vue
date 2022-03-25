@@ -43,7 +43,6 @@ export default {
   height: 272px;
   border: 2px solid transparent;
   &:hover {
-    // border: 2px solid $primary-color;
     border-color: $primary-color;
   }
   .img-wrapper {
@@ -77,7 +76,7 @@ export default {
     color: #666666;
   }
   .date {
-    color: #999999;
+    color: $gray-color;
     padding-top: 40px;
     text-align: right;
   }

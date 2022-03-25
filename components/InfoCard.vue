@@ -1,5 +1,5 @@
 <template>
-  <div class="info-card-wrapper">
+  <div class="info-card-wrapper cursor-pointer">
     <img :src="data.src" alt="" />
     <div class="title">{{ data.title }}</div>
     <div class="desc">{{ data.desc }}</div>
@@ -49,6 +49,10 @@ export default {
   margin-top: 20px;
   border-radius: 4px;
   height: 272px;
+  border: 2px solid transparent;
+  &:hover {
+    border-color: $primary-color;
+  }
   img {
     width: 216px;
     height: 146px;
@@ -69,7 +73,7 @@ export default {
     color: #666666;
   }
   .date {
-    color: #999999;
+    color: $gray-color;
     padding-top: 40px;
     text-align: right;
   }

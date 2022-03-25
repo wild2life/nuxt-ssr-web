@@ -15,11 +15,6 @@
 export default {
   name: 'ActivityPage',
   layout: 'default',
-  head() {
-    return {
-      title: '活动',
-    }
-  },
   data() {
     return {
       data: [
@@ -94,6 +89,11 @@ export default {
           date: '2022-01-13 10:34:28',
         },
       ],
+    }
+  },
+  head() {
+    return {
+      title: '活动',
     }
   },
 }

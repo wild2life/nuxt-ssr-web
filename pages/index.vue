@@ -19,7 +19,7 @@
     </div>
     <div class="index-info flex margin-top-lg justify-between">
       <div class="index-info-left">
-        <div class="index-info-left-tab">
+        <div class="index-info-left-tab padding-top-xs">
           <el-tabs v-model="activeName">
             <el-tab-pane
               v-for="item in list"
@@ -42,9 +42,9 @@
       <div class="index-info-right margin-left-lg">
         <NewsCard :data="list1"></NewsCard>
         <HotList class="margin-top-lg"></HotList>
-        <HotSearchWords :data="list1" class="margin-top-lg"></HotSearchWords>
-        <HotTopics :data="list1" class="margin-top-lg"></HotTopics>
-        <PopularVideos :data="list1" class="margin-top-lg"></PopularVideos>
+        <HotSearchWords class="margin-top-lg"></HotSearchWords>
+        <HotTopics class="margin-top-lg"></HotTopics>
+        <HotVideos class="margin-top-lg"></HotVideos>
       </div>
     </div>
   </div>
@@ -226,7 +226,6 @@ export default {
     background-color: $primary-color;
     padding-left: 30px;
     border-radius: 7px;
-    padding-top: 5px;
     height: 56px;
     box-sizing: border-box;
   }
@@ -242,6 +241,9 @@ export default {
       .el-tabs__active-bar.is-top {
         background-color: #fff;
       }
+    }
+    ::v-deep .el-tabs__nav-wrap::after {
+      background-color: transparent;
     }
   }
   &-right {

@@ -41,7 +41,6 @@ export default {
   },
   created() {
     this.handleScreenResize()
-    console.log(this.$route.name, 'this.$route.name')
   },
   methods: {
     handleScreenResize() {

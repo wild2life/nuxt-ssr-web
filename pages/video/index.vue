@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="video-info-right margin-left-lg">
-        <PopularVideos :data="list1" class="margin-top-lg"></PopularVideos>
+        <HotVideos :data="list1" class="margin-top-lg"></HotVideos>
         <HotList class="margin-top-lg"></HotList>
       </div>
     </div>

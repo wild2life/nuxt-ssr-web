@@ -2,7 +2,7 @@
   <div class="index-container padding-bottom-lg">
     <div class="index-info flex margin-top-lg justify-between">
       <div class="index-info-left">
-        <div class="index-info-left-tab">
+        <div class="index-info-left-tab padding-top-xs">
           <el-tabs v-model="activeName">
             <el-tab-pane
               v-for="item in list"
@@ -13,7 +13,7 @@
             </el-tab-pane>
           </el-tabs>
         </div>
-        <div class="index-info-left-card flex">
+        <div class="index-info-left-card flex flex-wrap flex-sub">
           <InfoCard
             v-for="(item, index) in data"
             :key="index"
@@ -25,9 +25,9 @@
       <div class="index-info-right margin-left-lg">
         <NewsCard :data="list1"></NewsCard>
         <HotList class="margin-top-lg"></HotList>
-        <HotSearchWords :data="list1" class="margin-top-lg"></HotSearchWords>
-        <HotTopics :data="list1" class="margin-top-lg"></HotTopics>
-        <PopularVideos :data="list1" class="margin-top-lg"></PopularVideos>
+        <HotSearchWords class="margin-top-lg"></HotSearchWords>
+        <HotTopics class="margin-top-lg"></HotTopics>
+        <HotVideos class="margin-top-lg"></HotVideos>
       </div>
     </div>
   </div>
@@ -182,34 +182,12 @@ export default {
 .index-container {
   width: 100vw;
 }
-.banner-wrapper {
-  padding: 20px 0;
-}
-.banner {
-  height: 400px;
-  .banner-left {
-    flex-basis: 60%;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-  .banner-right {
-    flex-basis: 40%;
-    img {
-      height: 194px;
-      width: calc(50% - 10px);
-      display: inline-block;
-    }
-  }
-}
 .index-info {
   &-left-tab {
     width: 790px;
     background-color: $primary-color;
     padding-left: 30px;
     border-radius: 7px;
-    padding-top: 5px;
     height: 56px;
     box-sizing: border-box;
   }
@@ -226,13 +204,12 @@ export default {
         background-color: #fff;
       }
     }
+    ::v-deep .el-tabs__nav-wrap::after {
+      background-color: transparent;
+    }
   }
   &-right {
     width: 390px;
-  }
-  &-left-card {
-    flex-wrap: wrap;
-    flex: 1;
   }
 }
 </style>

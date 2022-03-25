@@ -6,8 +6,8 @@
         <div class="main">
           <div class="player-section-wrap">
             <div
-              class="player-section bdv-video-player-contianer play-mode-vd play-status-pause"
               id="playerSection"
+              class="player-section bdv-video-player-contianer play-mode-vd play-status-pause"
             >
               <video
                 class="video-player"
@@ -62,7 +62,7 @@
                 </div>
               </div>
             </div>
-            <div class="player-pause-adv hide" id="playerPauseAdv"></div>
+            <div id="playerPauseAdv" class="player-pause-adv hide"></div>
             <div id="PCPlaypageSticker" class="player-playing-adv hide"></div>
           </div>
           <!-- <div class="share-section">
@@ -15496,8 +15496,8 @@
         </div>
         <div class="side" style="position: relative">
           <div
-            class="video-list-wrap pgc-list"
             id="videoListWrap"
+            class="video-list-wrap pgc-list"
             static="bl=vlist"
           >
             <h2 class="h2-side-tt">
@@ -15509,7 +15509,7 @@
                 class="content-panel tab-content video-normal lh-duration"
                 style="width: 273px; top: 0"
               >
-                <div class="tab-panel episode-wp active" id="episodeWrapCont">
+                <div id="episodeWrapCont" class="tab-panel episode-wp active">
                   <div id="videoListRoot">
                     <ul class="videos">
                       <li class="video-item current first" data-episode="">

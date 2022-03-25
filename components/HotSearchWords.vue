@@ -1,22 +1,12 @@
 <template>
-  <div class="news-card-wrapper">
-    <div class="news-card-header flex justify-between align-center">
-      <p class="title flex align-center text-xl">
-        <img src="~/assets/image/news.png" />
-        热搜词
-      </p>
-      <span class="text-lg">查看更多<i class="el-icon-arrow-right"></i></span>
-    </div>
-    <div class="news-card-cont">
-      <div
-        v-for="(item, index) in data"
-        :key="index"
-        class="news-card-cont-item"
-      >
-        <p class="flex align-center">
-          <span class="dot"></span><span class="date">{{ item.date }}</span>
-        </p>
-        <p class="text-lg">{{ item.name }}</p>
+  <div class="hot-words-wrapper">
+    <CommonCardHeader
+      title="热搜词"
+      :src="require('~/assets/image/news.png')"
+    ></CommonCardHeader>
+    <div class="hot-words-cont flex-wrap flex">
+      <div v-for="(item, index) in data" :key="index">
+        <span class="hot-words-item cursor-pointer text-lg">{{ item }}</span>
       </div>
     </div>
   </div>
@@ -28,7 +18,15 @@ export default {
     data: {
       type: Array,
       default: () => {
-        return []
+        return [
+          '热搜词',
+          '新超过产业',
+          '消费升级',
+          '热搜词',
+          '热搜词',
+          '热搜词',
+          '热搜词',
+        ]
       },
     },
   },
@@ -36,36 +34,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.news-card-wrapper {
+.hot-words-wrapper {
   border-radius: 4px;
   box-shadow: 0 6px 24px rgb(38 38 38 / 6%);
-  padding: 10px;
-  .news-card-header {
-    display: flex;
-    border-bottom: 2px solid #f8f8f8;
-    height: 60px;
-    span {
-      color: #666;
+  padding: 10px 0;
+  .common-card-header {
+    margin: 0 10px;
+  }
+  .hot-words-cont {
+    padding: 0 4px 10px;
+    .hot-words-item {
+      padding: 10px 20px;
+      display: inline-block;
+      border: 1px solid#E2E2E2;
+      border-radius: 50px;
+      margin: 25px 4px 0;
+      &:hover {
+        border-color: $primary-color;
+        background-color: $primary-color;
+        color: #fff;
+      }
     }
-  }
-  .dot {
-    display: inline-block;
-    background: $primary-color;
-    width: 8px;
-    height: 8px;
-    margin-right: 15px;
-  }
-  .news-card-cont {
-    padding: 0 4px;
-  }
-  img {
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    margin: 0 4px;
-  }
-  .date {
-    color: $gray-color;
   }
 }
 </style>
