@@ -1,8 +1,9 @@
 <template>
-  <div class="topic-card-wrapper margin-top-lg cursor-pointer">
-    <img :src="data.src" alt="" />
+  <div class="topic-card-wrapper margin-top-lg cursor-pointer" @click="jump">
+    <img :src="data.img" alt="" />
     <div class="title text-lg">{{ data.title }}</div>
-    <div class="desc text-df">{{ data.desc }}</div>
+    <div class="desc text-df">{{ data.introduction }}</div>
+    <!-- <div>{{data.publish_time}}</div> -->
   </div>
 </template>
 <script>
@@ -13,29 +14,19 @@ export default {
       type: Object,
       default: () => {
         return {
-          src: '',
+          img: '',
           title: ' ',
-          desc: '',
-          date: '',
-          author: '',
+          introduction: '',
+          publish_time: '',
+          outlink: '',
+          activity_id: '',
         }
       },
     },
-    src: {
-      type: String,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    desc: {
-      type: String,
-      default: '',
-    },
-    date: {
-      type: String,
-      default: '',
+  },
+  methods: {
+    jump() {
+      window.open(this.data.outlink)
     },
   },
 }

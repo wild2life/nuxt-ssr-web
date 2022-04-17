@@ -13,7 +13,9 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-
+  loading: {
+    color: '#ff6700',
+  },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'normalize.css/normalize.css',
@@ -21,7 +23,7 @@ export default {
     'element-ui/lib/theme-chalk/index.css',
   ],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/element-ui'],
+  plugins: ['@/plugins/element-ui', '@/plugins/api'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -36,7 +38,21 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/style-resources'],
+  modules: ['@nuxtjs/style-resources', '@nuxtjs/axios', '@nuxtjs/proxy'],
+  axios: {
+    proxy: true, // 表示开启代理
+    prefix: '/api', // 表示给请求url加个前缀 /api
+    credentials: true, // 表示跨域请求时是否需要使用凭证
+  },
+  proxy: {
+    '/api': {
+      target: 'http://82.157.144.230',
+      changeOrigin: true,
+      // pathRewrite: {
+
+      // }
+    },
+  },
   styleResources: {
     scss: ['~assets/style/global.scss'], // scss入口文件
   },
@@ -51,5 +67,6 @@ export default {
         ],
       ],
     },
+    vendor: ['axios'],
   },
 }

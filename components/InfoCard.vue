@@ -1,9 +1,9 @@
 <template>
-  <div class="info-card-wrapper cursor-pointer">
-    <img :src="data.src" alt="" />
-    <div class="title">{{ data.title }}</div>
-    <div class="desc">{{ data.desc }}</div>
-    <div class="date text-sm">{{ data.author }} | {{ data.date }}</div>
+  <div class="info-card-wrapper cursor-pointer margin-top-lg">
+    <img :src="data.img" alt="" />
+    <div class="title text-lg">{{ data.title }}</div>
+    <div class="desc text-sm">{{ data.introduction }}</div>
+    <div class="date text-sm">{{ data.author }} | {{ data.publish_time }}</div>
   </div>
 </template>
 <script>
@@ -14,29 +14,13 @@ export default {
       type: Object,
       default: () => {
         return {
-          src: '',
-          title: ' ',
-          desc: '',
-          date: '',
+          img: '',
+          title: '',
+          introduction: ' ',
+          publish_time: '',
           author: '',
         }
       },
-    },
-    src: {
-      type: String,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    desc: {
-      type: String,
-      default: '',
-    },
-    date: {
-      type: String,
-      default: '',
     },
   },
 }
@@ -46,10 +30,11 @@ export default {
 .info-card-wrapper {
   width: 250px;
   background-color: #f8f8f8;
-  margin-top: 20px;
   border-radius: 4px;
-  height: 272px;
+  // height: 272px;
+  position: relative;
   border: 2px solid transparent;
+  padding-bottom: 30px;
   &:hover {
     border-color: $primary-color;
   }
@@ -61,21 +46,19 @@ export default {
     margin: 12px 17px;
   }
   .title,
-  .date,
   .desc {
     padding: 0 9px;
   }
-  .title {
-    font-size: 17px;
-  }
   .desc {
-    font-size: 15px;
     color: #666666;
   }
   .date {
     color: $gray-color;
-    padding-top: 40px;
     text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 9px;
   }
 }
 </style>

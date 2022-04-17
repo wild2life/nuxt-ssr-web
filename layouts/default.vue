@@ -5,7 +5,10 @@
     </section>
     <section
       class="main-section"
-      :class="{ 'video-main-section': isVideoDetail }"
+      :class="{
+        'video-main-section': isVideoDetail,
+        'full-screen-main-section': isFullScrenWidth,
+      }"
     >
       <router-view></router-view>
     </section>
@@ -38,9 +41,18 @@ export default {
     isVideoDetail() {
       return this.$route.name === 'video-detail'
     },
+    isFullScrenWidth() {
+      return ['video-detail', 'about'].includes(this.$route.name)
+    },
   },
   created() {
     this.handleScreenResize()
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$nuxt.$loading.start()
+      setTimeout(() => this.$nuxt.$loading.finish(), 500)
+    })
   },
   methods: {
     handleScreenResize() {
@@ -90,13 +102,15 @@ export default {
   margin: 0 auto;
 }
 .video-main-section {
-  width: 100%;
   background: #1e1e1e;
 }
 .main-section {
   flex: 1;
   display: flex;
   min-height: calc(100% - #{$footer-height} - #{$menu-height});
+}
+.full-screen-main-section {
+  width: 100%;
 }
 .footer-wrapper {
   background: #f8f8f8;
