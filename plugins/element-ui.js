@@ -9,6 +9,8 @@ import {
   TabPane,
   Carousel,
   CarouselItem,
+  Row,
+  Col,
 } from 'element-ui'
 
 import '@/assets/style/variables.scss'
@@ -19,4 +21,6 @@ Vue.use(Tabs)
 Vue.use(TabPane)
 Vue.use(Carousel)
 Vue.use(CarouselItem)
+Vue.use(Row)
+Vue.use(Col)
 // Vue.use(Element, { locale })

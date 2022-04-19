@@ -13,9 +13,7 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
-  loading: {
-    color: '#ff6700',
-  },
+  loading: '~/components/Loading.vue',
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     'normalize.css/normalize.css',

@@ -1,12 +1,35 @@
 <template>
-  <div class="hot-words-wrapper">
+  <div
+    class="hot-words-wrapper"
+    :class="{
+      'box-shadow': !isMobile,
+      'border-radius': !isMobile,
+      'padding-lr': isMobile,
+      'padding-tb-sm': !isMobile,
+      'margin-top': isMobile,
+      'mobile-hot-words-wrapper': isMobile,
+    }"
+  >
     <CommonCardHeader
+      v-if="!isMobile"
       title="热搜词"
       :src="require('~/assets/image/news.png')"
+      class="margin-lr-sm"
     ></CommonCardHeader>
-    <div class="hot-words-cont flex-wrap flex">
-      <div v-for="(item, index) in data" :key="index">
-        <span class="hot-words-item cursor-pointer text-lg">{{ item }}</span>
+    <div
+      class="hot-words-cont flex"
+      :class="{
+        'padding-lr-sm': !isMobile,
+        'padding-bottom': !isMobile,
+        'flex-wrap': !isMobile,
+      }"
+    >
+      <div v-for="item in data" :key="item.hotword_id">
+        <span
+          :class="{ 'margin-top-xl': !isMobile }"
+          class="hot-words-item cursor-pointer text-lg padding-tb-sm padding-lr-lg"
+          >{{ item.name }}</span
+        >
       </div>
     </div>
   </div>
@@ -18,43 +41,44 @@ export default {
     data: {
       type: Array,
       default: () => {
-        return [
-          '热搜词',
-          '新超过产业',
-          '消费升级',
-          '热搜词',
-          '热搜词',
-          '热搜词',
-          '热搜词',
-        ]
+        return []
       },
+    },
+  },
+  computed: {
+    isMobile() {
+      return this.$store.state.setting.device === 'mobile'
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.hot-words-wrapper {
-  border-radius: 4px;
-  box-shadow: 0 6px 24px rgb(38 38 38 / 6%);
-  padding: 10px 0;
-  .common-card-header {
-    margin: 0 10px;
-  }
+.mobile-hot-words-wrapper {
+  width: 100vw;
   .hot-words-cont {
-    padding: 0 4px 10px;
-    .hot-words-item {
-      padding: 10px 20px;
-      display: inline-block;
-      border: 1px solid#E2E2E2;
-      border-radius: 50px;
-      margin: 25px 4px 0;
-      &:hover {
-        border-color: $primary-color;
-        background-color: $primary-color;
-        color: #fff;
-      }
+    overflow-y: hidden;
+    overflow-x: scroll;
+    white-space: nowrap;
+    width: 100%;
+    &::-webkit-scrollbar {
+      display: none;
     }
+  }
+  .hot-words-item {
+    background-color: #f2f2f2;
+    color: #2a2a2a;
+  }
+}
+.hot-words-item {
+  display: inline-block;
+  border: 1px solid #e2e2e2;
+  border-radius: 50px;
+  margin-right: 4px;
+  &:hover {
+    border-color: $primary-color;
+    background-color: $primary-color;
+    color: #fff;
   }
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="flex justify-between align-center header">
     <img src="~/assets/image/logo.png" alt="壹览商业" class="logo" />
     <div class="tab-wrapper">
-      <NuxtLink v-for="item in list" :key="item.name" :to="item.name"
+      <NuxtLink v-for="item in menuList" :key="item.name" :to="item.name"
         >{{ item.label }}
       </NuxtLink>
     </div>
@@ -20,44 +20,13 @@ export default {
   data() {
     return {
       inputVal: '',
-      list: [
-        {
-          label: '资讯',
-          name: '/info',
-        },
-        {
-          label: '快讯',
-          name: '/news',
-        },
-        {
-          label: '数据',
-          name: '/data',
-        },
-        {
-          label: '视频',
-          name: '/video',
-        },
-        {
-          label: '专题',
-          name: '/topic',
-        },
-        {
-          label: '活动',
-          name: '/activity',
-        },
-        {
-          label: '关于我们',
-          name: '/about',
-        },
-      ],
     }
   },
   computed: {
-    device() {
-      return this.$store.state.setting.device
+    menuList() {
+      return this.$store.state.setting.menuList
     },
   },
-  created() {},
 }
 </script>
 <style lang="scss" scoped>

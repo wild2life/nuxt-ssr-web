@@ -1,13 +1,19 @@
 <template>
-  <div class="vaw-main-layout-container" :class="[isMobile && 'is-mobile']">
-    <section class="header-wrapper">
+  <div class="vaw-main-layout-container" :class="{ 'is-mobile': isMobile }">
+    <section v-show="isPc" class="header-wrapper">
       <Header></Header>
+    </section>
+    <section v-show="isMobile">
+      <SlideBar></SlideBar>
+      <MobileHeader />
+      <MobileSearch />
     </section>
     <section
       class="main-section"
       :class="{
         'video-main-section': isVideoDetail,
         'full-screen-main-section': isFullScrenWidth,
+        'mobile-main-section': isMobile,
       }"
     >
       <router-view></router-view>
@@ -20,11 +26,17 @@
 <script>
 import Footer from './footer.vue'
 import Header from './header.vue'
+import SlideBar from './components/slidebar.vue'
+import MobileHeader from './components/header.vue'
+import MobileSearch from './components/search.vue'
 export default {
   name: 'Layout',
   components: {
     Footer,
     Header,
+    SlideBar,
+    MobileHeader,
+    MobileSearch,
   },
   data() {
     return {
@@ -38,21 +50,28 @@ export default {
     isMobile() {
       return this.device === 'mobile'
     },
+    isPc() {
+      return this.device === 'pc'
+    },
     isVideoDetail() {
       return this.$route.name === 'video-detail'
     },
     isFullScrenWidth() {
-      return ['video-detail', 'about'].includes(this.$route.name)
+      return (
+        ['video-detail', 'about'].includes(this.$route.name) || this.isMobile
+      )
     },
   },
-  created() {
-    this.handleScreenResize()
-  },
   mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start()
-      setTimeout(() => this.$nuxt.$loading.finish(), 500)
-    })
+    // this.$nextTick(() => {
+    //   this.$nuxt.$loading.start()
+    //   setTimeout(() => this.$nuxt.$loading.finish(), 500)
+    // })
+    this.handleScreenResize()
+    window.addEventListener('resize', this.handleScreenResize)
+  },
+  beforeDestory() {
+    window.removeEventListener('resize', this.handleScreenResize)
   },
   methods: {
     handleScreenResize() {
@@ -60,16 +79,16 @@ export default {
         const width = document.body.clientWidth
         if (width <= 768) {
           this.$store.commit('setting/changeDevice', 'mobile')
-          // store.toggleCollapse(true)
+          this.$store.commit('setting/toggleCollapse', true)
         } else if (width < 992 && width > 768) {
           this.$store.commit('setting/changeDevice', 'pad')
-          // store.toggleCollapse(true)
+          this.$store.commit('setting/toggleCollapse', true)
         } else if (width < 1200 && width >= 992) {
           this.$store.commit('setting/changeDevice', 'pc')
-          // store.toggleCollapse(false)
+          this.$store.commit('setting/toggleCollapse', false)
         } else {
           this.$store.commit('setting/changeDevice', 'pc')
-          // store.toggleCollapse(false)
+          this.$store.commit('setting/toggleCollapse', false)
         }
       }
     },
@@ -115,5 +134,18 @@ export default {
 .footer-wrapper {
   background: #f8f8f8;
   // height: $footer-height;
+}
+.is-mobile {
+  // position: relative;
+  .footer-wrapper .footer {
+    width: 100%;
+    padding: 0 20px;
+  }
+  .mobile-main-section {
+    // position: absolute;
+    // top: 60px;
+    // padding-top: 60px;
+    overflow-x: hidden;
+  }
 }
 </style>

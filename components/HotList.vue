@@ -1,16 +1,12 @@
 <template>
-  <div class="news-card-wrapper">
+  <div
+    class="news-card-wrapper box-shadow border-radius padding-sm"
+    :class="{ 'margin-lr': isMobile, 'margin-top-lg': isMobile }"
+  >
     <CommonCardHeader
       title="24小时热榜"
       :src="require('~/assets/image/news.png')"
     ></CommonCardHeader>
-    <!-- <div class="news-card-header flex justify-between align-center">
-      <p class="title flex align-center text-xl">
-        <img src="~/assets/image/news.png" />
-        24小时热榜
-      </p>
-      <span class="text-lg">查看更多<i class="el-icon-arrow-right"></i></span>
-    </div> -->
     <div class="news-card-cont">
       <div>
         <div class="first">
@@ -62,29 +58,13 @@ export default {
     data: {
       type: Array,
       default: () => {
-        return [
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '星巴克入驻美团外卖，阿里终究是 帮别人做了嫁衣',
-          },
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '盲盒“反噬”肯德基',
-          },
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '无限复购的饮料，是怎 样炼成的？',
-          },
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '过年送礼，难倒年轻人',
-          },
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '无限复购的饮料，是怎样炼成的？',
-          },
-        ]
+        return []
       },
+    },
+  },
+  computed: {
+    isMobile() {
+      return this.$store.state.setting.device === 'mobile'
     },
   },
 }
@@ -92,23 +72,6 @@ export default {
 
 <style lang="scss" scoped>
 .news-card-wrapper {
-  border-radius: 4px;
-  box-shadow: 0 6px 24px rgb(38 38 38 / 6%);
-  padding: 10px;
-  // .news-card-header {
-  //   display: flex;
-  //   border-bottom: 2px solid #f8f8f8;
-  //   height: 60px;
-  //   img {
-  //     width: 30px;
-  //     height: 30px;
-  //     margin: 0 4px;
-  //     display: inline-block;
-  //   }
-  //   span {
-  //     color: #666;
-  //   }
-  // }
   .news-card-cont {
     padding: 15px 20px;
     .first {
