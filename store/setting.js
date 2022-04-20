@@ -1,3 +1,6 @@
+import axios from 'axios'
+// const api = 'http://82.157.144.230/api/layout'
+
 export const state = () => ({
   device: '',
   isCollapse: true,
@@ -31,6 +34,16 @@ export const state = () => ({
       name: '/about',
     },
   ],
+  layout: {
+    copyright: '',
+    description: '',
+    keyword: '',
+    logo: '',
+    record: '',
+    title: '',
+    wechat_qrcode: '',
+    links: [],
+  },
 })
 
 export const mutations = {
@@ -39,5 +52,14 @@ export const mutations = {
   },
   toggleCollapse(state, toggleCollapse) {
     state.isCollapse = toggleCollapse
+  },
+  SET_LAYOUT(state, layout) {
+    state.layout = layout
+  },
+}
+export const actions = {
+  async nuxtServerInit({ commit }) {
+    const { data } = await axios.get('api/layout')
+    commit('SET_LAYOUT', data.data)
   },
 }

@@ -1,9 +1,11 @@
 <template>
   <div class="about-container">
     <div class="banner">
-      <div class="banner-title">壹览商业丨洞见消费品牌的新未来</div>
+      <!-- <div class="banner-title">壹览商业丨洞见消费品牌的新未来</div> -->
+      <div class="banner-title">{{ layout.title }}</div>
       <div class="banner-desc text-df">
-        关注并研究大消费行情下的快销品、服饰、美妆、食品饮料、宠物及相关零售商。
+        <!-- 关注并研究大消费行情下的快销品、服饰、美妆、食品饮料、宠物及相关零售商。 -->
+        {{ layout.description }}
       </div>
     </div>
     <div class="about-main flex">
@@ -131,7 +133,7 @@ export default {
           value: 2,
         },
       ],
-      active: 2,
+      active: 1,
       list: [
         {
           title: '一、新媒体运营实习生',
@@ -234,6 +236,11 @@ export default {
       title: '关于我们',
     }
   },
+  computed: {
+    layout() {
+      return this.$store.state.setting.layout
+    },
+  },
   methods: {
     handleClick(value) {
       this.active = value
@@ -248,19 +255,23 @@ $img1-space: 5px;
 $img2-width: 320px;
 $img2-height: 379px;
 $img2-space: 15px;
+
 .about-container {
   width: 100%;
 }
+
 .banner {
   height: 650px;
   background: url('@/assets/image/about/banner.png') no-repeat;
   background-size: 100% 100%;
   color: #fff;
   text-align: center;
+
   &-title {
     font-size: 50px;
     padding-top: 200px;
   }
+
   &-desc {
     margin-top: 58px;
   }
@@ -270,35 +281,43 @@ $img2-space: 15px;
   width: $container-width;
   padding: 20px 0;
   margin: 0 auto;
+
   &-left {
     box-shadow: 0 6px 24px rgb(38 38 38 / 6%);
     border-radius: 5px;
     width: 410px;
+
     .tab-item {
       color: #999;
       margin-top: 64px;
     }
+
     .actived {
       font-weight: bold;
       color: #333;
       border-right: 3px solid $primary-color;
     }
   }
+
   &-right {
     padding: 60px 0;
+
     .main1 {
       .left {
         width: 280px;
         margin: 0 40px;
       }
+
       .right {
         width: $img1-width + $img1-space;
         height: $img1-height + $img1-space;
         position: relative;
+
         img {
           position: absolute;
           z-index: 2;
         }
+
         .img-bg {
           background: $primary-color;
           position: absolute;
@@ -313,15 +332,18 @@ $img2-space: 15px;
 
     .main2 {
       margin-top: 130px;
+
       .left {
         margin-left: 40px;
         width: $img2-width + $img2-space;
         height: $img2-height - $img2-space;
         position: relative;
+
         img {
           position: absolute;
           z-index: 2;
         }
+
         .img-bg {
           background: $primary-color;
           position: absolute;
@@ -333,6 +355,7 @@ $img2-space: 15px;
           height: $img2-height - $img2-space - $img2-space;
         }
       }
+
       .right {
         flex: 1;
         box-shadow: 0 6px 24px rgb(38 38 38 / 6%);
@@ -342,19 +365,24 @@ $img2-space: 15px;
     }
   }
 }
+
 .join-main-right {
   .card-main {
     box-shadow: 0 6px 24px rgb(38 38 38 / 6%);
     border-radius: 5px;
     padding: 20px;
+
     .title {
       padding-bottom: 20px;
+
       > p {
         margin-left: 195px;
       }
+
       > div {
         position: relative;
         margin-left: 136px;
+
         &::before {
           width: 30px;
           height: 1px;
@@ -363,6 +391,7 @@ $img2-space: 15px;
           content: '';
           left: -40px;
         }
+
         &::after {
           width: 82%;
           height: 1px;
@@ -374,6 +403,7 @@ $img2-space: 15px;
       }
     }
   }
+
   .line {
     width: 60px;
     height: 3px;

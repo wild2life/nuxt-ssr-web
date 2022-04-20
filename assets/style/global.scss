@@ -6,3 +6,16 @@ $gray-color: #999;
 $transition-time: 0.3s ease;
 $mobile-menu-width: 300px;
 $mobile-header-height: 60px;
+$video-bg-color: #191a1e;
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

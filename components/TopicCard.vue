@@ -3,7 +3,9 @@
     <img :src="data.img" alt="" />
     <div class="title text-lg">{{ data.title }}</div>
     <div class="desc text-df">{{ data.introduction }}</div>
-    <!-- <div>{{data.publish_time}}</div> -->
+    <div class="date text-sm">
+      {{ data.publish_time }}
+    </div>
   </div>
 </template>
 <script>
@@ -14,12 +16,11 @@ export default {
       type: Object,
       default: () => {
         return {
+          topic_id: '',
           img: '',
           title: ' ',
           introduction: '',
           publish_time: '',
-          outlink: '',
-          activity_id: '',
         }
       },
     },
@@ -38,10 +39,13 @@ export default {
   background-color: #f8f8f8;
   border-radius: 4px;
   height: 310px;
+  position: relative;
   border: 2px solid transparent;
+
   &:hover {
     border-color: $primary-color;
   }
+
   img {
     width: 246px;
     height: 168px;
@@ -49,12 +53,23 @@ export default {
     border-radius: 2px;
     margin: 12px 20px;
   }
+
   .title,
   .desc {
     padding: 0 12px;
   }
+
   .desc {
     color: #666;
+  }
+
+  .date {
+    color: $gray-color;
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding-right: 9px;
   }
 }
 </style>

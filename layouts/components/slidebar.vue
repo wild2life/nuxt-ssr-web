@@ -93,7 +93,7 @@ export default {
     border-right: none !important;
     height: 100%;
     a {
-      text-decoration: none;
+      // text-decoration: none;
       color: #2d2d2d;
       font-size: 25px;
       padding: 27px 0 27px 68px;

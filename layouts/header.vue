@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between align-center header">
-    <img src="~/assets/image/logo.png" alt="壹览商业" class="logo" />
+    <img :src="logo" alt="壹览商业" class="logo" />
     <div class="tab-wrapper">
       <NuxtLink v-for="item in menuList" :key="item.name" :to="item.name"
         >{{ item.label }}
@@ -17,6 +17,12 @@
 export default {
   name: 'Layout',
   components: {},
+  props: {
+    logo: {
+      type: String,
+      default: '',
+    },
+  },
   data() {
     return {
       inputVal: '',
@@ -43,7 +49,7 @@ export default {
     padding-left: 35px;
     height: 60px;
     a {
-      text-decoration: none;
+      // text-decoration: none;
       color: #2d2d2d;
       font-size: 19px;
       padding-top: 20px;

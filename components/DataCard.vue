@@ -10,12 +10,12 @@
           {{ item.title }}
         </div>
         <div class="main text-df text-cut-l3">
-          {{ item.mian }}
+          {{ item.introduction }}
         </div>
         <div class="date text-df flex align-center">
           <img src="~/assets/image/logo.png" class="margin-right-sm" />
-          {{ item.date }}
-          <span v-for="(tag, idx) in item.tag" :key="idx" class="tag">
+          {{ item.publish_time }}
+          <span v-for="(tag, idx) in item.tags" :key="idx" class="tag">
             {{ tag }}
           </span>
         </div>
@@ -30,50 +30,7 @@ export default {
     data: {
       type: Array,
       default: () => {
-        return [
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '星巴克入驻美团外卖，阿里终究是 帮别人做了嫁衣',
-            date: '2021年10月19日 00',
-            mian: '2021年10月19-21日，国潮产业新媒体观潮新消费发起《国潮起·万物 生——2021国潮新消费大会》，旨在探寻国潮强势崛起消费发起《国潮起·万物 生——2021国潮新消费大会',
-            tag: ['2021国潮新消费大会', '国潮新风尚'],
-          },
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '星巴克入驻美团外卖，阿里终究是 帮别人做了嫁衣',
-            date: '2021年10月19日 00',
-            mian: '2021年10月19-21日，国潮产业新媒体观潮新消费发起《国潮起·万物 生——2021国潮新消费大会》，旨在探寻国潮强势崛起消费发起《国潮起·万物 生——2021国潮新消费大会',
-            tag: ['2021国潮新消费大会', '国潮新风尚'],
-          },
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '星巴克入驻美团外卖，阿里终究是 帮别人做了嫁衣',
-            date: '2021年10月19日 00',
-            mian: '2021年10月19-21日，国潮产业新媒体观潮新消费发起《国潮起·万物 生——2021国潮新消费大会》，旨在探寻国潮强势崛起消费发起《国潮起·万物 生——2021国潮新消费大会',
-            tag: ['2021国潮新消费大会', '国潮新风尚'],
-          },
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '星巴克入驻美团外卖，阿里终究是 帮别人做了嫁衣',
-            date: '2021年10月19日 00',
-            mian: '2021年10月19-21日，国潮产业新媒体观潮新消费发起《国潮起·万物 生——2021国潮新消费大会》，旨在探寻国潮强势崛起消费发起《国潮起·万物 生——2021国潮新消费大会',
-            tag: ['2021国潮新消费大会', '国潮新风尚'],
-          },
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '星巴克入驻美团外卖，阿里终究是 帮别人做了嫁衣',
-            date: '2021年10月19日 00',
-            mian: '2021年10月19-21日，国潮产业新媒体观潮新消费发起《国潮起·万物 生——2021国潮新消费大会》，旨在探寻国潮强势崛起消费发起《国潮起·万物 生——2021国潮新消费大会',
-            tag: ['2021国潮新消费大会', '国潮新风尚'],
-          },
-          {
-            img: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fwx1.sinaimg.cn%2Fcrop.0.138.1440.800%2F006xEe4Rgy1gzf7ny7vrlj31400u0n3s.jpg&refer=http%3A%2F%2Fwx1.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1650348075&t=b1d9ec6a112155f506734fde673505e7',
-            title: '星巴克入驻美团外卖，阿里终究是 帮别人做了嫁衣',
-            date: '2021年10月19日 00',
-            mian: '2021年10月19-21日，国潮产业新媒体观潮新消费发起《国潮起·万物 生——2021国潮新消费大会》，旨在探寻国潮强势崛起消费发起《国潮起·万物 生——2021国潮新消费大会',
-            tag: ['2021国潮新消费大会', '国潮新风尚'],
-          },
-        ]
+        return []
       },
     },
   },

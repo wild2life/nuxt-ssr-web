@@ -1,12 +1,14 @@
 <template>
   <div class="info-card-wrapper cursor-pointer">
     <div class="img-wrapper" @click="handleClick">
-      <img :src="data.src" alt="" class="bg" />
-      <img src="~/assets/image/video.png" class="icon-play" />
+      <img :src="data.img" alt="" class="bg" />
+      <img img="~/assets/image/video.png" class="icon-play" />
     </div>
-    <div class="title">{{ data.title }}</div>
-    <div class="desc">{{ data.desc }}</div>
-    <div class="date text-sm">{{ data.author }} | {{ data.date }}</div>
+    <div class="title">
+      {{ data.title }}
+    </div>
+    <div class="desc">{{ data.introduction }}</div>
+    <div class="date text-sm">{{ data.publish_time }}</div>
   </div>
 </template>
 <script>
@@ -17,18 +19,21 @@ export default {
       type: Object,
       default: () => {
         return {
-          src: '',
+          video_id: '',
+          img: '',
           title: ' ',
-          desc: '',
-          date: '',
-          author: '',
+          introduction: '',
+          publish_time: '',
         }
       },
     },
   },
   methods: {
     handleClick() {
-      this.$router.push({ path: '/video/detail' })
+      this.$router.push({
+        path: '/video/detail',
+        query: { video_id: this.data.video_id },
+      })
     },
   },
 }
@@ -62,6 +67,7 @@ export default {
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     top: 50%;
+    z-index: 10;
   }
   .title,
   .date,

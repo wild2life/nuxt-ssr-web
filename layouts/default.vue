@@ -1,7 +1,7 @@
 <template>
   <div class="vaw-main-layout-container" :class="{ 'is-mobile': isMobile }">
     <section v-show="isPc" class="header-wrapper">
-      <Header></Header>
+      <Header :logo="layout.logo"></Header>
     </section>
     <section v-show="isMobile">
       <SlideBar></SlideBar>
@@ -19,7 +19,7 @@
       <router-view></router-view>
     </section>
     <section class="footer-wrapper">
-      <Footer></Footer>
+      <Footer :layout="layout"></Footer>
     </section>
   </div>
 </template>
@@ -44,6 +44,9 @@ export default {
     }
   },
   computed: {
+    layout() {
+      return this.$store.state.setting.layout
+    },
     device() {
       return this.$store.state.setting.device
     },
@@ -63,10 +66,7 @@ export default {
     },
   },
   mounted() {
-    // this.$nextTick(() => {
-    //   this.$nuxt.$loading.start()
-    //   setTimeout(() => this.$nuxt.$loading.finish(), 500)
-    // })
+    this.$store.dispatch('setting/nuxtServerInit')
     this.handleScreenResize()
     window.addEventListener('resize', this.handleScreenResize)
   },
@@ -121,7 +121,7 @@ export default {
   margin: 0 auto;
 }
 .video-main-section {
-  background: #1e1e1e;
+  background: $video-bg-color;
 }
 .main-section {
   flex: 1;

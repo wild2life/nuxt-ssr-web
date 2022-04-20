@@ -3,10 +3,14 @@
     <div>
       <div class="time text-sm flex align-center">
         <span class="dot"></span>
-        {{ data.time }}
+        {{ data.publish_time }}
       </div>
-      <div class="title text-lg">{{ data.title }}</div>
-      <div class="main text-df">{{ data.main }}</div>
+      <div class="title text-lg">
+        <NuxtLink to="/news/detail">
+          {{ data.title }}
+        </NuxtLink>
+      </div>
+      <div class="main text-df">{{ data.content }}</div>
     </div>
   </div>
 </template>
@@ -37,8 +41,14 @@ export default {
     color: $gray-color;
   }
   .title {
-    color: #2a2a2a;
     margin-top: 14px;
+  }
+  a {
+    // text-decoration: none;
+    color: #2a2a2a;
+    &:hover {
+      color: $primary-color;
+    }
   }
   .main {
     color: #666;

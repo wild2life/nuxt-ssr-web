@@ -1,6 +1,17 @@
 <template>
-  <!-- 自定义loading -->
-  <div v-if="laoding" class="loading-box" />
+  <div v-if="laoding" class="first-loading-wrp">
+    <div class="loading-wrp">
+      <!-- <i class="splash__item" style="--i: 0.1s"></i>
+      <i class="splash__item" style="--i: 0.2s"></i>
+      <i class="splash__item" style="--i: 0.3s"></i>
+      <i class="splash__item" style="--i: 0.4s"></i>
+      <i class="splash__item" style="--i: 0.5s"></i>
+      <i class="splash__item" style="--i: 0.6s"></i>
+      <i class="splash__item" style="--i: 0.7s"></i>
+      <i class="splash__item" style="--i: 0.8s"></i> -->
+    </div>
+    <h1>壹览商业</h1>
+  </div>
 </template>
 
 <script>
@@ -20,43 +31,42 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.loading-box {
-  width: 100px;
-  height: 100px;
+.first-loading-wrp {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  min-height: 90vh;
+}
+
+.first-loading-wrp > h1 {
+  font-size: 30px;
+  font-weight: bolder;
+}
+
+@keyframes loading__scale-to-up {
+  from {
+    transform: scale(1, 0.2);
+  }
+  to {
+    transform: scale(1, 1);
+  }
+}
+
+.first-loading-wrp .loading-wrp i {
   background-color: $primary-color;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 999999;
-  animation: rotateplane 1.5s infinite ease-in-out;
-  -webkit-animation: rotateplane 1.5s infinite ease-in-out;
+  display: inline-block;
+  width: 5px;
+  height: 50px;
+  border-radius: 5px;
+}
+.splash__item + .splash__item {
+  margin-left: 10px;
 }
 
-@-webkit-keyframes rotateplane {
-  0% {
-    -webkit-transform: perspective(120px);
-  }
-  50% {
-    -webkit-transform: perspective(120px) rotateY(180deg);
-  }
-  100% {
-    -webkit-transform: perspective(120px) rotateY(180deg) rotateY(180deg);
-  }
-}
-
-@keyframes rotateplane {
-  0% {
-    transform: perspective(120px) rotateY(0deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateY(0deg) rotateY(0deg);
-  }
-  50% {
-    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
-  }
-  100% {
-    transform: perspective(120px) rotateX(-180deg) rotateY(179.9deg);
-    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(179.9deg);
-  }
+.first-loading-wrp .loading-wrp .splash__item {
+  animation: loading__scale-to-up 0.5s linear infinite alternate-reverse;
+  animation-delay: calc(var(--i) + 0s);
 }
 </style>
