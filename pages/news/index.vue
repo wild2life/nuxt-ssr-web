@@ -35,11 +35,6 @@ export default {
       hotArticleData: hotRes.data,
     }
   },
-  head() {
-    return {
-      title: '快讯',
-    }
-  },
 }
 </script>
 <style scoped lang="scss">

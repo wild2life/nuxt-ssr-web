@@ -35,11 +35,6 @@ export default {
       newsData: newsRes.data,
     }
   },
-  head() {
-    return {
-      title: '数据',
-    }
-  },
 }
 </script>
 <style lang="scss" scoped>

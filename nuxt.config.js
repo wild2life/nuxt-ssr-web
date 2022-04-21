@@ -1,14 +1,20 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'yilan',
+    title: '壹览商业,壹览,商业,消费,零售',
     htmlAttrs: {
       lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { name: 'keyword', content: '壹览商业,壹览,商业,消费,零售' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          '关注并研究大消费行情下的快销品牌、时尚品牌、宠物及相关零售商。',
+      },
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -21,7 +27,11 @@ export default {
     'element-ui/lib/theme-chalk/index.css',
   ],
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['@/plugins/element-ui', '@/plugins/api'],
+  plugins: [
+    '@/plugins/element-ui',
+    '@/plugins/api',
+    { src: '~/plugins/infiniteloading', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -66,5 +76,10 @@ export default {
       ],
     },
     vendor: ['axios'],
+  },
+  router: {
+    scrollBehavior(to, from, savedPosition) {
+      return { x: 0, y: 0 }
+    },
   },
 }

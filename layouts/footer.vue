@@ -4,8 +4,8 @@
       <p><img :src="layout.logo" alt="壹览商业" class="logo" /></p>
       <p>
         <span class="label">快速导航: </span>
-        <span class="value">关于我们</span>
-        <span class="value">加入我们</span>
+        <NuxtLink class="value" to="/about">关于我们</NuxtLink>
+        <NuxtLink class="value" to="/about">加入我们</NuxtLink>
       </p>
       <p>
         <span class="label">合作伙伴: </span>
@@ -25,7 +25,7 @@
       </p>
     </div>
     <div class="footer-right">
-      <img :src="layout.wechat_qrcode" class="qr-code" /><img />
+      <img :src="layout.wechat_qrcode" class="qr-code" />
     </div>
   </div>
 </template>
@@ -49,14 +49,6 @@ export default {
       },
     },
   },
-  data() {
-    return {
-      list: ['速途网', '亿欧网', '联商网', '联商网'],
-    }
-  },
-  computed: {},
-  created() {},
-  methods: {},
 }
 </script>
 <style lang="scss" scoped>
@@ -68,6 +60,10 @@ export default {
     display: inline-block;
   }
   .label {
+    color: $primary-color;
+  }
+
+  a:hover {
     color: $primary-color;
   }
 }

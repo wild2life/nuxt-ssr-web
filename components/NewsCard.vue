@@ -6,6 +6,7 @@
     <CommonCardHeader
       title="快讯"
       :src="require('~/assets/image/news.png')"
+      route-name="/news"
     ></CommonCardHeader>
     <div class="news-card-cont">
       <div
@@ -17,7 +18,11 @@
           <span class="dot"></span
           ><span class="date">{{ item.publish_time }}</span>
         </p>
-        <p class="text-lg">{{ item.title }}</p>
+        <p class="text-lg">
+          <NuxtLink :to="'news/' + item.flash_new_id">{{
+            item.title
+          }}</NuxtLink>
+        </p>
       </div>
     </div>
   </div>

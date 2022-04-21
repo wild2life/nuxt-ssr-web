@@ -4,12 +4,17 @@
     :class="{ 'margin-lr': isMobile, 'margin-top-lg': isMobile }"
   >
     <CommonCardHeader
+      route-name="/topic"
       title="热门专题"
       :src="require('~/assets/image/news.png')"
     ></CommonCardHeader>
     <div class="news-card-cont flex align-center flex-direction">
-      <img :src="data.img" alt="" />
-      <div class="text-df text-cut-l2 cursor-pointer">{{ data.title }}</div>
+      <NuxtLink :to="'topic/' + data[0].topic_id">
+        <img :src="data[0].img" alt="" />
+        <div class="text-df text-cut-l2 cursor-pointer title">
+          {{ data[0].title }}
+        </div>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -44,6 +49,11 @@ export default {
       width: 100%;
       height: 225px;
       display: inline-block;
+    }
+    a:hover {
+      .title {
+        color: $primary-color;
+      }
     }
   }
 }

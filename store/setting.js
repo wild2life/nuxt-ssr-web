@@ -44,6 +44,12 @@ export const state = () => ({
     wechat_qrcode: '',
     links: [],
   },
+  advertise: {
+    img: '',
+    link: '',
+    title: '',
+  },
+  searchVal: '',
 })
 
 export const mutations = {
@@ -56,10 +62,18 @@ export const mutations = {
   SET_LAYOUT(state, layout) {
     state.layout = layout
   },
+  SET_ADVERTISE(state, data) {
+    state.advertise = data
+  },
+  SET_SEARCHVAL(state, data) {
+    state.searchVal = data
+  },
 }
 export const actions = {
   async nuxtServerInit({ commit }) {
     const { data } = await axios.get('api/layout')
+    const adRes = await axios.get('api/side_index_ad')
     commit('SET_LAYOUT', data.data)
+    commit('SET_ADVERTISE', adRes.data.data)
   },
 }

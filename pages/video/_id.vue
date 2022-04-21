@@ -154,10 +154,10 @@
 export default {
   name: 'VideoPage',
   layout: 'default',
-  async asyncData({ app, query }) {
+  async asyncData({ app, route }) {
     const { $axios } = app
     const [videoInfo] = await Promise.all([
-      $axios.get(`videos/${query.video_id}`),
+      $axios.get(`videos/${route.params.id}`),
     ])
     return {
       videoInfo: videoInfo.data.info,

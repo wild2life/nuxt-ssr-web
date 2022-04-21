@@ -7,7 +7,9 @@
       <div class="data-card-right flex flex-direction justify-between">
         <div class="title text-lg flex align-center text-bold">
           <span class="tips flex align-center justify-center">原创</span>
-          {{ item.title }}
+          <NuxtLink :to="'article/' + item.article_id">{{
+            item.title
+          }}</NuxtLink>
         </div>
         <div class="main text-df text-cut-l3">
           {{ item.introduction }}
@@ -64,12 +66,6 @@ export default {
       .main {
         line-height: 30px;
         color: $gray-color;
-        // text-overflow: -o-ellipsis-lastline;
-        // overflow: hidden;
-        // text-overflow: ellipsis;
-        // display: -webkit-box;
-        // -webkit-line-clamp: 3;
-        // -webkit-box-orient: vertical;
       }
       .date {
         color: $gray-color;

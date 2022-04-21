@@ -8,24 +8,31 @@
     }"
   >
     <div v-if="isMobile" class="flex margin-lr padding-lr-xs padding-tb-lg">
-      <img :src="data.img" alt="" class="margin-left-sm" />
-      <div
-        class="flex flex-direction justify-between margin-right-sm flex-sub padding-left padding-tb-xs"
-      >
-        <div class="text-lg">
-          <span class="margin-right-xs">{{ data.author }}</span
-          >{{ data.title }}
+      <NuxtLink :to="'article/' + data.article_id">
+        <img :src="data.img" alt="" class="margin-left-sm" />
+        <div
+          class="flex flex-direction justify-between margin-right-sm flex-sub padding-left padding-tb-xs"
+        >
+          <div class="text-lg">
+            <span v-if="data.author" class="margin-right-xs">{{
+              data.author
+            }}</span
+            >{{ data.title }}
+          </div>
+          <div>{{ data.publish_time }}</div>
         </div>
-        <div>{{ data.publish_time }}</div>
-      </div>
+      </NuxtLink>
     </div>
     <div v-else>
-      <img :src="data.img" alt="" />
-      <div class="title text-lg">{{ data.title }}</div>
-      <div class="desc text-sm">{{ data.introduction }}</div>
-      <div class="date text-sm">
-        {{ data.author }} | {{ data.publish_time }}
-      </div>
+      <NuxtLink :to="'article/' + data.article_id">
+        <img :src="data.img" alt="" />
+        <div class="title text-lg">{{ data.title }}</div>
+        <div class="desc text-sm">{{ data.introduction }}</div>
+        <div class="date text-sm">
+          <span v-if="data.author">{{ data.author }} | </span>
+          {{ data.publish_time }}
+        </div>
+      </NuxtLink>
     </div>
   </div>
 </template>
@@ -64,13 +71,15 @@ export default {
   width: 250px;
   background-color: #f8f8f8;
   border-radius: 4px;
-  // height: 272px;
   position: relative;
   border: 2px solid transparent;
   padding-bottom: 30px;
 
   &:hover {
     border-color: $primary-color;
+    .title {
+      color: $primary-color;
+    }
   }
 
   img {

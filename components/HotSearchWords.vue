@@ -15,6 +15,7 @@
       title="热搜词"
       :src="require('~/assets/image/news.png')"
       class="margin-lr-sm"
+      :hidden-jump-btn="true"
     ></CommonCardHeader>
     <div
       class="hot-words-cont flex"
@@ -28,6 +29,7 @@
         <span
           :class="{ 'margin-top-xl': !isMobile }"
           class="hot-words-item cursor-pointer text-lg padding-tb-sm padding-lr-lg"
+          @click="search(item.name)"
           >{{ item.name }}</span
         >
       </div>
@@ -48,6 +50,11 @@ export default {
   computed: {
     isMobile() {
       return this.$store.state.setting.device === 'mobile'
+    },
+  },
+  methods: {
+    search(val) {
+      this.$router.push({ path: '/search', query: { search: val } })
     },
   },
 }

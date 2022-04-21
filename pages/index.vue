@@ -9,7 +9,7 @@
       <el-col :span="!isMobile ? 12 : 24">
         <el-carousel
           :height="!isMobile ? '399px' : '360px'"
-          :interval="5000"
+          :interval="3000"
           arrow="always"
         >
           <el-carousel-item v-for="(item, index) in slideData" :key="index">
@@ -25,14 +25,25 @@
       </el-col>
       <el-col v-if="!isMobile" :span="6" class="padding-left-sm">
         <div class="flex flex-direction justify-between">
-          <img src="~/assets/image/banner1.png" alt="" />
-          <img src="~/assets/image/banner2.png" alt="" class="margin-top-sm" />
+          <img :src="lastData[0].img" alt="" style="height: 194px" />
+          <img
+            :src="lastData[2].img"
+            alt=""
+            class="margin-top-sm"
+            style="height: 194px"
+          />
         </div>
       </el-col>
       <el-col v-if="!isMobile" :span="6" class="padding-left-sm">
         <div class="flex flex-direction justify-between">
-          <img src="~/assets/image/banner3.png" alt="" />
-          <img src="~/assets/image/banner4.png" alt="" class="margin-top-sm" />
+          <img :src="lastData[1].img" alt="" style="height: 194px" />
+          <img
+            :src="lastData[3].img"
+            alt=""
+            class="margin-top-sm"
+            style="height: 194px"
+          />
+          <!-- <img src="~/assets/image/banner4.png" alt="" class="margin-top-sm" /> -->
         </div>
       </el-col>
     </el-row>
@@ -72,6 +83,12 @@
             :data="item"
             :class="{ 'margin-right': !isMobile && (index + 1) % 3 }"
           ></InfoCard>
+          <infinite-loading
+            v-if="cardData.length"
+            spinner="bubbles"
+            @infinite="infiniteScroll"
+          ></infinite-loading>
+          <!-- <LoadMore @loadMoreListener="loadMoreListener" @clickLoadMore="clickLoadMore" ref="loadMoreRef"></LoadMore> -->
         </div>
       </el-col>
       <el-col
@@ -89,6 +106,7 @@
         ></HotSearchWords>
         <HotTopics class="margin-top-lg" :data="hotTopicData"></HotTopics>
         <HotVideos class="margin-top-lg" :data="hotVideoData"></HotVideos>
+        <Advertise class="margin-top-lg"></Advertise>
       </el-col>
     </el-row>
   </div>
@@ -119,7 +137,8 @@ export default {
         industry_id: item.industry_id.toString(),
       })),
       activeName: tabRes.data[0].industry_id.toString(),
-      slideData: slideRes.data,
+      slideData: slideRes.data.slice(0, slideRes.data.length - 4),
+      lastData: slideRes.data.slice(-4),
       cardData: cardRes.data.data,
       newsData: newsRes.data,
       hotArticleData: hotRes.data,
@@ -128,12 +147,15 @@ export default {
       hotWordData: wordRes.data,
     }
   },
-  head() {
+  data() {
     return {
-      title: '首页',
+      page: 1,
     }
   },
   computed: {
+    layout() {
+      return this.$store.state.setting.layout
+    },
     isMobile() {
       return this.$store.state.setting.device === 'mobile'
     },
@@ -142,12 +164,43 @@ export default {
     open(link) {
       window.open(link, '_blank')
     },
+    // click() {
+    //   this.$refs.loadMoreRef.loadMore()
+    // },
     async handleChange() {
       const { data } = await this.$axios.get(
         `industry/${this.activeName}/articles`
       )
       this.cardData = data.data
     },
+    infiniteScroll($state) {
+      setTimeout(() => {
+        this.page++ // next page
+        this.$axios
+          .get(`industry/${this.activeName}/articles?page=${this.page}`)
+          .then((resp) => {
+            if (resp.data.data.length > 1) {
+              resp.data.data.forEach((item) => this.cardData.push(item)) // push it into the items array so we can display the data
+              $state.loaded()
+            } else {
+              $state.complete()
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }, 500)
+    },
+    // loadMoreListener() {
+    //   this.page += 1
+    //   this.loadData()
+    // },
+    // clickLoadMore() {
+    //   this.loadData();
+    // },
+    // loadData() {
+    //   console.log('加载中a');
+    // }
   },
 }
 </script>

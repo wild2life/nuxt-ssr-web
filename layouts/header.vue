@@ -1,6 +1,11 @@
 <template>
   <div class="flex justify-between align-center header">
-    <img :src="logo" alt="壹览商业" class="logo" />
+    <img
+      :src="logo"
+      alt="壹览商业"
+      class="logo cursor-pointer"
+      @click="jumpIndex"
+    />
     <div class="tab-wrapper">
       <NuxtLink v-for="item in menuList" :key="item.name" :to="item.name"
         >{{ item.label }}
@@ -10,6 +15,7 @@
       v-model="inputVal"
       prefix-icon="el-icon-search"
       placeholder="请输入您感兴趣的问题"
+      @change="search"
     ></el-input>
   </div>
 </template>
@@ -29,8 +35,29 @@ export default {
     }
   },
   computed: {
+    path() {
+      return this.$route.path
+    },
     menuList() {
       return this.$store.state.setting.menuList
+    },
+  },
+  watch: {
+    path() {
+      if (this.path !== '/search') {
+        this.inputVal = ''
+      }
+      if (this.$route.query.search) {
+        this.inputVal = this.$route.query.search
+      }
+    },
+  },
+  methods: {
+    jumpIndex() {
+      this.$router.replace('/')
+    },
+    search() {
+      this.$router.push({ path: '/search', query: { search: this.inputVal } })
     },
   },
 }
@@ -49,7 +76,6 @@ export default {
     padding-left: 35px;
     height: 60px;
     a {
-      // text-decoration: none;
       color: #2d2d2d;
       font-size: 19px;
       padding-top: 20px;

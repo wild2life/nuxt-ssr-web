@@ -27,9 +27,14 @@
               目前已入驻：
             </div>
             <p class="text-df padding-top-lg text-content">
-              微信公众号、36氪、亿欧网、 联商网、澎湃号、东方富、
-              富途牛牛、雪球、微博、搜狐号、 企鹅号、百度号、
-              今日头条、网易号、知
+              <span
+                v-for="(item, index) in layout.links"
+                :key="index"
+                class="cursor-pointer"
+                @click="open(item.url)"
+                >{{ item.name }}
+                <b v-if="index !== layout.links.length - 1">、</b>
+              </span>
             </p>
           </div>
           <div class="right flex-sub">
@@ -66,52 +71,11 @@
               <div class="flex align-center margin-left-lg">/ 招聘职位 /</div>
               <p>简历发至：dongye@yilantop.com</p>
             </div>
-            <h1>{{ card.title }}</h1>
+            <h1>{{ card.name }}</h1>
             <span class="line"></span>
-            <div v-for="(item, idx) in card.items" :key="idx">
-              <div class="text-xl padding-bottom-lg padding-top-lg text-bold">
-                {{ item.title }}：
-              </div>
-              <div v-if="item.desc" class="text-lg text-content">
-                {{ item.desc }}
-              </div>
-              <div v-else>
-                <div
-                  v-for="(desc, descIndex) in item.descList"
-                  :key="desc"
-                  class="text-lg text-content"
-                >
-                  {{ descIndex + 1 }}、{{ desc }}
-                </div>
-              </div>
-            </div>
+            <div class="text-lg text-content" v-html="card.description"></div>
           </div>
         </div>
-        <!-- <div class="card-wrapper">
-          <div class="title">
-            <p>招聘职位</p>
-            <p>简历发至：dongye@yilantop.com</p>
-          </div>
-          <div class="card-main">
-            <h1>一、新媒体运营实习生</h1>
-            <span class="line"></span>
-            <h5>职位诱惑：</h5>
-            <p>优秀可以转正、频繁接触商业大佬、成长速度块</p>
-            <h5>职位描述：</h5>
-            <div>
-              1、协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划；
-            </div>
-            <div>2、协助整理分析运营数据，协助输出优化建议；</div>
-            <div>
-              3、协助完成一些日常工作，比如文章编辑、排版、内容配图设计等；
-            </div>
-            <div>
-              4、表现优秀着，有机会独立负责运营新媒体平台，可以在自己发表的作品上署名。
-            </div>
-            <h5>任职条件：</h5>
-            <h5>时间要求：</h5>
-          </div>
-        </div> -->
       </div>
     </div>
   </div>
@@ -119,8 +83,15 @@
 
 <script>
 export default {
-  name: 'IndexPage',
+  name: 'AboutPage',
   layout: 'default',
+  async asyncData({ app }) {
+    const { $axios } = app
+    const { data } = await $axios.get('recruits')
+    return {
+      list: data,
+    }
+  },
   data() {
     return {
       tabList: [
@@ -133,107 +104,7 @@ export default {
           value: 2,
         },
       ],
-      active: 1,
-      list: [
-        {
-          title: '一、新媒体运营实习生',
-          items: [
-            {
-              title: '职位诱惑',
-              desc: 'tototot',
-            },
-            {
-              title: '职位描述',
-              descList: [
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-              ],
-            },
-            {
-              title: '岗位要求',
-              descList: [
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-              ],
-            },
-            {
-              title: '薪资要求',
-              desc: '6-10k',
-            },
-          ],
-        },
-        {
-          title: '三、网站、新媒体编辑',
-          items: [
-            {
-              title: '职位诱惑',
-              desc: 'tototot',
-            },
-            {
-              title: '职位描述',
-              descList: [
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-              ],
-            },
-            {
-              title: '岗位要求',
-              descList: [
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-              ],
-            },
-            {
-              title: '薪资要求',
-              desc: '6-10k',
-            },
-          ],
-        },
-        {
-          title: '五、主编',
-          items: [
-            {
-              title: '职位诱惑',
-              desc: 'tototot',
-            },
-            {
-              title: '职位描述',
-              descList: [
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划；',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-              ],
-            },
-            {
-              title: '岗位要求',
-              descList: [
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-                '协助壹览商业网站、微博、头条号、百家号等新媒体平台，进行内容的输出及策划',
-              ],
-            },
-            {
-              title: '薪资福利',
-              desc: '工资面议',
-            },
-          ],
-        },
-      ],
-    }
-  },
-  head() {
-    return {
-      title: '关于我们',
+      active: 2,
     }
   },
   computed: {
@@ -244,6 +115,9 @@ export default {
   methods: {
     handleClick(value) {
       this.active = value
+    },
+    open(url) {
+      window.open(url)
     },
   },
 }

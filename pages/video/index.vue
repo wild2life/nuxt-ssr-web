@@ -37,11 +37,6 @@ export default {
       hotVideoData: videoRes.data,
     }
   },
-  head() {
-    return {
-      title: '视频',
-    }
-  },
 }
 </script>
 <style lang="scss" scoped>

@@ -1,14 +1,18 @@
 <template>
   <div class="info-card-wrapper cursor-pointer">
-    <div class="img-wrapper" @click="handleClick">
-      <img :src="data.img" alt="" class="bg" />
-      <img img="~/assets/image/video.png" class="icon-play" />
-    </div>
-    <div class="title">
-      {{ data.title }}
-    </div>
-    <div class="desc">{{ data.introduction }}</div>
-    <div class="date text-sm">{{ data.publish_time }}</div>
+    <NuxtLink :to="'video/' + data.video_id">
+      <div class="img-wrapper" @click="handleClick">
+        <img :src="data.img" alt="" class="bg" />
+        <img src="~/assets/image/video.png" class="icon-play" />
+      </div>
+      <div class="title">
+        {{ data.title }}
+      </div>
+      <div class="desc">{{ data.introduction }}</div>
+      <div class="date text-sm">
+        {{ data.publish_time }}
+      </div>
+    </NuxtLink>
   </div>
 </template>
 <script>
@@ -49,6 +53,9 @@ export default {
   border: 2px solid transparent;
   &:hover {
     border-color: $primary-color;
+    .title {
+      color: $primary-color;
+    }
   }
   .img-wrapper {
     width: 216px;
@@ -68,6 +75,8 @@ export default {
     transform: translateX(-50%) translateY(-50%);
     top: 50%;
     z-index: 10;
+    width: 22px;
+    height: 22px;
   }
   .title,
   .date,

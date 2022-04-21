@@ -6,7 +6,7 @@
         {{ data.publish_time }}
       </div>
       <div class="title text-lg">
-        <NuxtLink to="/news/detail">
+        <NuxtLink :to="'news/' + data.flash_new_id">
           {{ data.title }}
         </NuxtLink>
       </div>
@@ -21,7 +21,13 @@ export default {
     data: {
       type: Object,
       default: () => {
-        return {}
+        return {
+          flash_new_id: '',
+          content: '',
+          img: '',
+          publish_time: '',
+          title: '',
+        }
       },
     },
   },

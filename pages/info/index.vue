@@ -25,23 +25,10 @@
             </el-tab-pane>
           </el-tabs>
         </div>
-        <div
-          class="flex flex-sub card-wrap"
-          :class="{
-            'flex-wrap': !isMobile,
-            'flex-direction': isMobile,
-            'box-shadow': isMobile,
-            'border-radius': isMobile,
-            'margin-lr': isMobile,
-          }"
-        >
-          <InfoCard
-            v-for="(item, index) in cardData"
-            :key="index"
-            :data="item"
-            :class="{ 'margin-right': !isMobile && (index + 1) % 3 }"
-          ></InfoCard>
-        </div>
+        <DataCard
+          :data="cardData"
+          class="padding-top-lg margin-right-lg"
+        ></DataCard>
       </el-col>
       <el-col
         :xs="24"
@@ -49,14 +36,7 @@
         :md="8"
         :class="{ 'margin-top': !isMobile, 'pc-card-wrap': !isMobile }"
       >
-        <NewsCard :data="newsData"></NewsCard>
-        <HotList class="margin-top-lg" :data="hotArticleData"></HotList>
-        <HotSearchWords
-          v-if="!isMobile"
-          class="margin-top-lg"
-          :data="hotWordData"
-        ></HotSearchWords>
-        <HotTopics class="margin-top-lg" :data="hotTopicData"></HotTopics>
+        <HotList :data="hotArticleData"></HotList>
         <HotVideos class="margin-top-lg" :data="hotVideoData"></HotVideos>
       </el-col>
     </el-row>
@@ -69,16 +49,15 @@ export default {
   layout: 'default',
   async asyncData({ app }) {
     const { $axios } = app
-    const [tabRes, slideRes, newsRes, hotRes, videoRes, topicRes, wordRes] =
-      await Promise.all([
-        $axios.get('industry'),
-        $axios.get('slide'),
-        $axios.get('side_flash_news'),
-        $axios.get('side_hot_articles'),
-        $axios.get('side_hot_videos'),
-        $axios.get('side_hot_topics'),
-        $axios.get('side_hot_words'),
-      ])
+    const [tabRes, hotRes, videoRes] = await Promise.all([
+      $axios.get('industry'),
+      // $axios.get('slide'),
+      // $axios.get('side_flash_news'),
+      $axios.get('side_hot_articles'),
+      $axios.get('side_hot_videos'),
+      // $axios.get('side_hot_topics'),
+      // $axios.get('side_hot_words'),
+    ])
     const cardRes = await $axios.get(
       `industry/${tabRes.data[0].industry_id}/articles`
     )
@@ -88,18 +67,13 @@ export default {
         industry_id: item.industry_id.toString(),
       })),
       activeName: tabRes.data[0].industry_id.toString(),
-      slideData: slideRes.data,
+      // slideData: slideRes.data,
       cardData: cardRes.data.data,
-      newsData: newsRes.data,
+      // newsData: newsRes.data,
       hotArticleData: hotRes.data,
-      hotTopicData: topicRes.data,
+      // hotTopicData: topicRes.data,
       hotVideoData: videoRes.data,
-      hotWordData: wordRes.data,
-    }
-  },
-  head() {
-    return {
-      title: '资讯',
+      // hotWordData: wordRes.data,
     }
   },
   computed: {

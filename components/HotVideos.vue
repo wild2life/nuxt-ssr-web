@@ -4,6 +4,7 @@
     :class="{ 'margin-top-lg': isMobile, 'margin-lr': isMobile }"
   >
     <CommonCardHeader
+      route-name="/video"
       title="热门视频"
       :src="require('~/assets/image/video.png')"
     ></CommonCardHeader>
@@ -26,7 +27,7 @@
         <div
           class="title cursor-pointer video-card-cont-right text-cut-l3 flex align-center"
         >
-          {{ item.title }}
+          <NuxtLink :to="'video/' + item.video_id">{{ item.title }}</NuxtLink>
         </div>
       </div>
     </div>

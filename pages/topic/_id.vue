@@ -1,5 +1,6 @@
 <template>
   <div class="topic-container padding-bottom-lg">
+    专题详情-文章
     <div
       class="flex flex-wrap"
       :class="{
@@ -11,12 +12,12 @@
         width: !isMobile,
       }"
     >
-      <TopicCard
-        v-for="(item, index) in list"
+      <InfoCard
+        v-for="(item, index) in list.articles"
         :key="index"
         :data="item"
         :class="{ 'margin-right-lg': !isMobile && (index + 1) % 4 }"
-      ></TopicCard>
+      ></InfoCard>
     </div>
   </div>
 </template>
@@ -25,12 +26,13 @@
 export default {
   name: 'IndexPage',
   layout: 'default',
-  async asyncData({ app }) {
+  async asyncData({ app, route }) {
     const { $axios } = app
-    const [cardRes] = await Promise.all([$axios.get('topics')])
+    const [cardRes] = await Promise.all([
+      $axios.get(`topics/${route.params.id}/articles`),
+    ])
     return {
-      list: cardRes.data.data,
-      total: cardRes.data.total,
+      list: cardRes.data.topic,
     }
   },
   computed: {

@@ -7,33 +7,32 @@
       'margin-top-lg': !isMobile,
     }"
   >
-    <div v-if="isMobile" class="flex margin-lr padding-lr-xs padding-tb-lg">
-      <NuxtLink :to="'topic/' + data.topic_id">
-        <img :src="data.img" alt="" class="margin-left-sm" />
-        <div
-          class="flex flex-direction justify-between margin-right-sm flex-sub padding-left padding-tb-xs"
-        >
-          <div class="text-lg">
-            <span v-if="data.author" class="margin-right-xs">{{
-              data.author
-            }}</span
-            >{{ data.title }}
-          </div>
-          <div>{{ data.publish_time }}</div>
+    <div
+      v-if="isMobile"
+      class="flex margin-lr padding-lr-xs padding-tb-lg"
+      @click="jump"
+    >
+      <img :src="data.img" alt="" class="margin-left-sm" />
+      <div
+        class="flex flex-direction justify-between margin-right-sm flex-sub padding-left padding-tb-xs"
+      >
+        <div class="text-lg">
+          <span v-if="data.author" class="margin-right-xs">{{
+            data.author
+          }}</span
+          >{{ data.title }}
         </div>
-      </NuxtLink>
+        <div>{{ data.publish_time }}</div>
+      </div>
     </div>
-
-    <div v-else>
-      <NuxtLink :to="'topic/' + data.topic_id">
-        <img :src="data.img" alt="" />
-        <div class="title text-lg">{{ data.title }}</div>
-        <div class="desc text-sm">{{ data.introduction }}</div>
-        <div class="date text-sm">
-          <span v-if="data.author">{{ data.author }} | </span>
-          {{ data.publish_time }}
-        </div>
-      </NuxtLink>
+    <div v-else @click="jump">
+      <img :src="data.img" alt="" />
+      <div class="title text-lg">{{ data.title }}</div>
+      <div class="desc text-sm">{{ data.introduction }}</div>
+      <div class="date text-sm">
+        <span v-if="data.author">{{ data.author }} | </span>
+        {{ data.publish_time }}
+      </div>
     </div>
   </div>
 </template>
@@ -45,7 +44,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          topic_id: '',
+          article_id: '',
           img: '',
           title: '',
           introduction: ' ',
@@ -62,6 +61,11 @@ export default {
     },
     isMobile() {
       return this.device === 'mobile'
+    },
+  },
+  methods: {
+    jump() {
+      window.open(this.data.outlink)
     },
   },
 }
