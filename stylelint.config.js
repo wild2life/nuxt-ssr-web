@@ -8,6 +8,6 @@ module.exports = {
   // add your custom config here
   // https://stylelint.io/user-guide/configuration
   rules: {
-    // 'custom-property-empty-line-before': false,
+    'custom-property-empty-line-before': null,
   },
 }

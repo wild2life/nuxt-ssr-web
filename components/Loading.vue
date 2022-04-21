@@ -1,14 +1,14 @@
 <template>
   <div v-if="laoding" class="first-loading-wrp">
     <div class="loading-wrp">
-      <!-- <i class="splash__item" style="--i: 0.1s"></i>
+      <i class="splash__item" style="--i: 0.1s"></i>
       <i class="splash__item" style="--i: 0.2s"></i>
       <i class="splash__item" style="--i: 0.3s"></i>
       <i class="splash__item" style="--i: 0.4s"></i>
       <i class="splash__item" style="--i: 0.5s"></i>
       <i class="splash__item" style="--i: 0.6s"></i>
       <i class="splash__item" style="--i: 0.7s"></i>
-      <i class="splash__item" style="--i: 0.8s"></i> -->
+      <i class="splash__item" style="--i: 0.8s"></i>
     </div>
     <h1>壹览商业</h1>
   </div>
