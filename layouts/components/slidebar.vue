@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     closeMenu() {
-      this.$store.commit('setting/toggleCollapse', true)
+      this.$store.commit('setting/TOGGLE_COLLAPSE', true)
     },
   },
 }

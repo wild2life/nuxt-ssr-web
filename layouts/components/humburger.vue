@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     toggleFold() {
-      this.$store.commit('setting/toggleCollapse', !this.isCollapse)
+      this.$store.commit('setting/TOGGLE_COLLAPSE', !this.isCollapse)
     },
   },
 }

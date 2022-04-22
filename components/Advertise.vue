@@ -1,19 +1,26 @@
 <template>
   <div class="news-card-wrapper">
-    <img :src="advertise.img" :alt="advertise.title" @click="jump" />
+    <img :src="data.img" :alt="data.title" @click="jump" />
   </div>
 </template>
 <script>
 export default {
   name: 'Advertise',
-  computed: {
-    advertise() {
-      return this.$store.state.setting.advertise
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {
+          img: '',
+          link: '',
+          title: '',
+        }
+      },
     },
   },
   methods: {
     jump() {
-      window.open(this.advertise.link)
+      window.open(this.data.link)
     },
   },
 }

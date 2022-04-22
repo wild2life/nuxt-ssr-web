@@ -59,7 +59,6 @@ export default {
     },
   },
   mounted() {
-    this.$store.dispatch('setting/nuxtServerInit')
     this.handleScreenResize()
     window.addEventListener('resize', this.handleScreenResize)
   },
@@ -71,17 +70,17 @@ export default {
       if (process.client) {
         const width = document.body.clientWidth
         if (width <= 768) {
-          this.$store.commit('setting/changeDevice', 'mobile')
-          this.$store.commit('setting/toggleCollapse', true)
+          this.$store.commit('setting/CHANGE_DEVICE', 'mobile')
+          this.$store.commit('setting/TOGGLE_COLLAPSE', true)
         } else if (width < 992 && width > 768) {
-          this.$store.commit('setting/changeDevice', 'pad')
-          this.$store.commit('setting/toggleCollapse', true)
+          this.$store.commit('setting/CHANGE_DEVICE', 'pad')
+          this.$store.commit('setting/TOGGLE_COLLAPSE', true)
         } else if (width < 1200 && width >= 992) {
-          this.$store.commit('setting/changeDevice', 'pc')
-          this.$store.commit('setting/toggleCollapse', false)
+          this.$store.commit('setting/CHANGE_DEVICE', 'pc')
+          this.$store.commit('setting/TOGGLE_COLLAPSE', false)
         } else {
-          this.$store.commit('setting/changeDevice', 'pc')
-          this.$store.commit('setting/toggleCollapse', false)
+          this.$store.commit('setting/CHANGE_DEVICE', 'pc')
+          this.$store.commit('setting/TOGGLE_COLLAPSE', false)
         }
       }
     },
