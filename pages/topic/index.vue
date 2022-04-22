@@ -18,12 +18,20 @@
         :class="{ 'margin-right-lg': !isMobile && (index + 1) % 4 }"
       ></TopicCard>
     </div>
+    <infinite-loading
+      v-if="list.length"
+      spinner="bubbles"
+      @infinite="infiniteScroll"
+    >
+      <span slot="no-more" class="padding-top"> 已经没有啦~~ </span>
+      <span slot="no-results" class="padding-top"> 暂无数据~~ </span>
+    </infinite-loading>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage',
+  name: 'TopicPage',
   layout: 'default',
   async asyncData({ app }) {
     const { $axios } = app
@@ -31,11 +39,32 @@ export default {
     return {
       list: cardRes.data.data,
       total: cardRes.data.total,
+      page: 1,
     }
   },
   computed: {
     isMobile() {
       return this.$store.state.setting.device === 'mobile'
+    },
+  },
+  methods: {
+    infiniteScroll($state) {
+      setTimeout(() => {
+        this.page++ // next page
+        this.$axios
+          .get(`topics?page=${this.page}`)
+          .then((resp) => {
+            if (resp.data.data.length > 1) {
+              resp.data.data.forEach((item) => this.list.push(item))
+              $state.loaded()
+            } else {
+              $state.complete()
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }, 500)
     },
   },
 }

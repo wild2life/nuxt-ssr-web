@@ -11,10 +11,12 @@
     <div v-if="data.description" class="color-999 padding-top text-lg">
       {{ data.description }}
     </div>
-    <span class="more margin-top">
-      阅读我的更多文章
-      <!-- <NuxtLink class="text-lg padding-tb padding-lr-lg">阅读我的更多文章</NuxtLink> -->
-    </span>
+    <NuxtLink
+      class="text-lg padding-tb padding-lr-lg"
+      :to="'/author/' + data.author_id"
+    >
+      <span class="more margin-top">阅读我的更多文章</span>
+    </NuxtLink>
   </div>
 </template>
 <script>
@@ -25,11 +27,11 @@ export default {
       type: Object,
       default: () => {
         return {
-          article_count: 66,
-          author_id: 7,
-          description: '233232323',
+          article_count: '',
+          author_id: '',
+          description: '',
           img: '',
-          name: '靳庄',
+          name: '',
         }
       },
     },

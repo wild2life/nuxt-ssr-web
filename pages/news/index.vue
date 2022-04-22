@@ -10,12 +10,19 @@
             :data="item"
           ></NewsList>
         </div>
+        <infinite-loading
+          v-if="list.length"
+          spinner="bubbles"
+          @infinite="infiniteScroll"
+        >
+          <span slot="no-more" class="padding-top"> 已经没有啦~~ </span>
+          <span slot="no-results" class="padding-top"> 暂无数据~~ </span>
+        </infinite-loading>
       </div>
       <div class="right">
         <HotList class="margin-top-lg" :data="hotArticleData"></HotList>
       </div>
     </div>
-    <img src="~/assets/image/dropdown.png" alt="" class="dropdown" />
   </div>
 </template>
 
@@ -33,7 +40,28 @@ export default {
       list: cardRes.data.data,
       total: cardRes.data.total,
       hotArticleData: hotRes.data,
+      page: 1,
     }
+  },
+  methods: {
+    infiniteScroll($state) {
+      setTimeout(() => {
+        this.page++ // next page
+        this.$axios
+          .get(`flash_news?page=${this.page}`)
+          .then((resp) => {
+            if (resp.data.data.length > 1) {
+              resp.data.data.forEach((item) => this.list.push(item))
+              $state.loaded()
+            } else {
+              $state.complete()
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }, 500)
+    },
   },
 }
 </script>
@@ -60,12 +88,6 @@ export default {
       -webkit-transform: translateY(-50%);
       transform: translateY(-50%);
     }
-  }
-  .dropdown {
-    width: 44px;
-    height: 38px;
-    margin: 0 auto;
-    display: flex;
   }
 }
 </style>

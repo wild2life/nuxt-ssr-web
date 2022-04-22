@@ -104,7 +104,7 @@ export default {
           value: 2,
         },
       ],
-      active: 2,
+      active: 1,
     }
   },
   computed: {

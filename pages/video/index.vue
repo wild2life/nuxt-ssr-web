@@ -10,6 +10,14 @@
             :style="{ marginRight: (index + 1) % 3 ? '20px' : '0' }"
           ></VideoCard>
         </div>
+        <infinite-loading
+          v-if="list.length"
+          spinner="bubbles"
+          @infinite="infiniteScroll"
+        >
+          <span slot="no-more" class="padding-top"> 已经没有啦~~ </span>
+          <span slot="no-results" class="padding-top"> 暂无数据~~ </span>
+        </infinite-loading>
       </div>
       <div class="video-info-right margin-left-lg">
         <HotVideos class="margin-top-lg" :data="hotVideoData"></HotVideos>
@@ -35,7 +43,28 @@ export default {
       total: cardRes.data.total,
       hotArticleData: hotRes.data,
       hotVideoData: videoRes.data,
+      page: 1,
     }
+  },
+  methods: {
+    infiniteScroll($state) {
+      setTimeout(() => {
+        this.page++
+        this.$axios
+          .get(`videos?page=${this.page}`)
+          .then((resp) => {
+            if (resp.data.data.length > 1) {
+              resp.data.data.forEach((item) => this.list.push(item))
+              $state.loaded()
+            } else {
+              $state.complete()
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }, 500)
+    },
   },
 }
 </script>

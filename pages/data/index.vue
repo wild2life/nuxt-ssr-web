@@ -3,6 +3,14 @@
     <div class="data-info flex justify-between">
       <div class="data-info-left margin-top-lg">
         <DataCard :data="list"></DataCard>
+        <infinite-loading
+          v-if="list.length"
+          spinner="bubbles"
+          @infinite="infiniteScroll"
+        >
+          <span slot="no-more" class="padding-top"> 已经没有啦~~ </span>
+          <span slot="no-results" class="padding-top"> 暂无数据~~ </span>
+        </infinite-loading>
       </div>
       <div class="data-info-right margin-left-lg margin-top-lg">
         <NewsCard :data="newsData"></NewsCard>
@@ -13,8 +21,6 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
-
 export default {
   name: 'DataPage',
   layout: 'default',
@@ -33,7 +39,28 @@ export default {
       total: cardRes.data.total,
       hotArticleData: hotRes.data,
       newsData: newsRes.data,
+      page: 1,
     }
+  },
+  methods: {
+    infiniteScroll($state) {
+      setTimeout(() => {
+        this.page++
+        this.$axios
+          .get(`data?page=${this.page}`)
+          .then((resp) => {
+            if (resp.data.data.length > 1) {
+              resp.data.data.forEach((item) => this.list.push(item))
+              $state.loaded()
+            } else {
+              $state.complete()
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }, 500)
+    },
   },
 }
 </script>

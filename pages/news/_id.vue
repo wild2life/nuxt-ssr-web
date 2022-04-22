@@ -67,7 +67,7 @@
 
 <script>
 export default {
-  name: 'NewsDetailPage',
+  name: 'NewsId',
   layout: 'default',
   async asyncData({ app, route }) {
     const { $axios } = app
@@ -81,6 +81,14 @@ export default {
         tags: res.data.tags.split(','),
       },
       hotArticleData: hotRes.data,
+    }
+  },
+  head() {
+    return {
+      title: this.data.articles.tags,
+      // meta: [
+      //   { hid: 'keyword', name: 'keyword', content: this.data.articles.tags },
+      // ],
     }
   },
   computed: {

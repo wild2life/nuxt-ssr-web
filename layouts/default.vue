@@ -1,6 +1,6 @@
 <template>
   <div class="vaw-main-layout-container" :class="{ 'is-mobile': isMobile }">
-    <section v-show="isPc" class="header-wrapper">
+    <section v-show="!isMobile" class="header-wrapper">
       <Header :logo="layout.logo"></Header>
     </section>
     <section v-show="isMobile">
@@ -38,11 +38,6 @@ export default {
     MobileHeader,
     MobileSearch,
   },
-  data() {
-    return {
-      // isVideoDetail: false
-    }
-  },
   computed: {
     layout() {
       return this.$store.state.setting.layout
@@ -57,12 +52,10 @@ export default {
       return this.device === 'pc'
     },
     isVideoDetail() {
-      return this.$route.name === 'video-detail'
+      return this.$route.name === 'video-id'
     },
     isFullScrenWidth() {
-      return (
-        ['video-detail', 'about'].includes(this.$route.name) || this.isMobile
-      )
+      return ['video-id', 'about'].includes(this.$route.name) || this.isMobile
     },
   },
   mounted() {

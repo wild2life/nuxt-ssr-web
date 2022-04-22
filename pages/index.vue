@@ -86,9 +86,10 @@
           <infinite-loading
             v-if="cardData.length"
             spinner="bubbles"
+            :identifier="infiniteId"
             @infinite="infiniteScroll"
-          ></infinite-loading>
-          <!-- <LoadMore @loadMoreListener="loadMoreListener" @clickLoadMore="clickLoadMore" ref="loadMoreRef"></LoadMore> -->
+          >
+          </infinite-loading>
         </div>
       </el-col>
       <el-col
@@ -145,11 +146,8 @@ export default {
       hotTopicData: topicRes.data,
       hotVideoData: videoRes.data,
       hotWordData: wordRes.data,
-    }
-  },
-  data() {
-    return {
       page: 1,
+      infiniteId: +new Date(),
     }
   },
   computed: {
@@ -164,12 +162,12 @@ export default {
     open(link) {
       window.open(link, '_blank')
     },
-    // click() {
-    //   this.$refs.loadMoreRef.loadMore()
-    // },
     async handleChange() {
+      this.infiniteId += 1
+      this.page = 1
+      this.cardData = []
       const { data } = await this.$axios.get(
-        `industry/${this.activeName}/articles`
+        `industry/${this.activeName}/articles?page=${this.page}`
       )
       this.cardData = data.data
     },
@@ -180,7 +178,7 @@ export default {
           .get(`industry/${this.activeName}/articles?page=${this.page}`)
           .then((resp) => {
             if (resp.data.data.length > 1) {
-              resp.data.data.forEach((item) => this.cardData.push(item)) // push it into the items array so we can display the data
+              resp.data.data.forEach((item) => this.cardData.push(item))
               $state.loaded()
             } else {
               $state.complete()
@@ -191,20 +189,21 @@ export default {
           })
       }, 500)
     },
-    // loadMoreListener() {
-    //   this.page += 1
-    //   this.loadData()
-    // },
-    // clickLoadMore() {
-    //   this.loadData();
-    // },
-    // loadData() {
-    //   console.log('加载中a');
-    // }
   },
 }
 </script>
 <style lang="scss" scoped>
+.card-wrap {
+  height: 2700px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .infinite-loading-container {
+    margin: 0 auto;
+    color: $primary-color;
+  }
+}
 .el-tab-wrap {
   background-color: $primary-color;
   padding-left: 30px;

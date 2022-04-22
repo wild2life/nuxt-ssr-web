@@ -1,30 +1,47 @@
 <template>
   <div class="topic-container padding-bottom-lg">
-    专题详情-文章
-    <div
-      class="flex flex-wrap"
-      :class="{
-        'flex-wrap': !isMobile,
-        'flex-direction': isMobile,
-        'box-shadow': isMobile,
-        'border-radius': isMobile,
-        'margin-lr': isMobile,
-        width: !isMobile,
-      }"
-    >
-      <InfoCard
-        v-for="(item, index) in list.articles"
-        :key="index"
-        :data="item"
-        :class="{ 'margin-right-lg': !isMobile && (index + 1) % 4 }"
-      ></InfoCard>
-    </div>
+    <el-row>
+      <el-col :xs="24" :sm="24" :md="16">
+        <div
+          class="flex flex-wrap"
+          :class="{
+            'flex-wrap': !isMobile,
+            'flex-direction': isMobile,
+            'box-shadow': isMobile,
+            'border-radius': isMobile,
+            'margin-lr': isMobile,
+            width: !isMobile,
+          }"
+        >
+          <InfoCard
+            v-for="(item, index) in list"
+            :key="index"
+            :data="item"
+            :class="{ 'margin-right': !isMobile && (index + 1) % 3 }"
+          ></InfoCard>
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="24" :md="8">
+        <div
+          class="margin-top-lg flex flex-direction align-center box-shadow border-radius padding-tb"
+        >
+          <img :src="topic.cover" />
+          <div class="padding-tb text-xl">{{ topic.title }}</div>
+          <div class="text-lg color-666">
+            {{ topic.introduction }}
+          </div>
+          <div v-if="topic.publish_time" class="color-999 padding-top text-lg">
+            {{ topic.publish_time }}
+          </div>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'IndexPage',
+  name: 'TopicId',
   layout: 'default',
   async asyncData({ app, route }) {
     const { $axios } = app
@@ -32,7 +49,13 @@ export default {
       $axios.get(`topics/${route.params.id}/articles`),
     ])
     return {
-      list: cardRes.data.topic,
+      list: cardRes.data.topic.articles.map((item) => {
+        return {
+          ...item,
+          img: item.img || item.thumbnail,
+        }
+      }),
+      topic: cardRes.data.topic,
     }
   },
   computed: {
@@ -42,17 +65,3 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
-.width .info-card-wrapper {
-  width: 285px;
-  img {
-    width: 246px;
-    height: 168px;
-    margin: 12px 20px;
-  }
-  .title,
-  .desc {
-    padding: 0 12px;
-  }
-}
-</style>

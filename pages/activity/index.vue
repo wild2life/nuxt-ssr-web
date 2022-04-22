@@ -16,9 +16,16 @@
         :key="index"
         :data="item"
         :class="{ 'margin-right-lg': !isMobile && (index + 1) % 4 }"
-        @click="jump(item.link)"
       ></ActivityCard>
     </div>
+    <infinite-loading
+      v-if="data.length"
+      spinner="bubbles"
+      @infinite="infiniteScroll"
+    >
+      <span slot="no-more" class="padding-top"> 已经没有啦~~ </span>
+      <span slot="no-results" class="padding-top"> 暂无数据~~ </span>
+    </infinite-loading>
   </div>
 </template>
 
@@ -32,11 +39,32 @@ export default {
     return {
       total: data.total,
       data: data.data,
+      page: 1,
     }
   },
   computed: {
     isMobile() {
       return this.$store.state.setting.device === 'mobile'
+    },
+  },
+  methods: {
+    infiniteScroll($state) {
+      setTimeout(() => {
+        this.page++
+        this.$axios
+          .get(`activities?page=${this.page}`)
+          .then((resp) => {
+            if (resp.data.data.length > 1) {
+              resp.data.data.forEach((item) => this.data.push(item))
+              $state.loaded()
+            } else {
+              $state.complete()
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }, 500)
     },
   },
 }

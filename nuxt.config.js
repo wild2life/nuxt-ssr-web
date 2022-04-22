@@ -1,14 +1,18 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: '壹览商业,壹览,商业,消费,零售',
+    title: '壹览商业丨洞见消费品牌的新未来',
     htmlAttrs: {
       lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'keyword', content: '壹览商业,壹览,商业,消费,零售' },
+      {
+        name: 'keyword',
+        hid: 'keyword',
+        content: '壹览商业,壹览,商业,消费,零售',
+      },
       {
         hid: 'description',
         name: 'description',
@@ -31,6 +35,7 @@ export default {
     '@/plugins/element-ui',
     '@/plugins/api',
     { src: '~/plugins/infiniteloading', ssr: false },
+    { src: '~plugins/video', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

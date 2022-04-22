@@ -25,7 +25,7 @@
       <el-col :xs="24" :sm="24" :md="16">
         <div class="padding-right-xl margin-right-xs content">
           <img src="data.articles.img" alt="" />
-          <div v-html="data.articles.content"></div>
+          <div class="article" v-html="data.articles.content"></div>
           <div class="tips margin-top-xl">
             <p class="color-999">
               转载之前请先阅读<a href="">转载说明</a>，违规转载法律必究
@@ -54,7 +54,7 @@
         </div>
       </el-col>
       <el-col :xs="24" :sm="24" :md="8">
-        <Author :data="data.author"></Author>
+        <AuthorCard :data="data.author"></AuthorCard>
         <HotList class="margin-top-lg" :data="hotArticleData"></HotList>
         <HotVideos class="margin-top-lg" :data="hotVideoData"></HotVideos>
       </el-col>
@@ -86,22 +86,6 @@ export default {
       },
     },
   },
-  // async asyncData({ app, route }) {
-  //   const { $axios } = app
-  //   const [hotRes, videoRes, res] = await Promise.all([
-  //     $axios.get('side_hot_articles'),
-  //     $axios.get('side_hot_videos'),
-  //     $axios.get(`articles/${route.params.id}`),
-  //   ])
-  //   return {
-  //     data: {
-  //       ...res.data,
-  //       tags: res.data.articles.tags.split(','),
-  //     },
-  //     hotArticleData: hotRes.data,
-  //     hotVideoData: videoRes.data,
-  //   }
-  // },
   computed: {
     isMobile() {
       return this.$store.state.setting.device === 'mobile'
@@ -147,5 +131,8 @@ export default {
 img {
   width: 100%;
   height: 520px;
+}
+::v-deep img {
+  width: 100%;
 }
 </style>

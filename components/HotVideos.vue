@@ -16,13 +16,15 @@
         class="flex margin-top-lg"
       >
         <div class="video-card-cont-left">
-          <span class="dot text-center">{{ index + 1 }}</span>
-          <img :src="item.img" alt="" class="bg-img" />
-          <img
-            :src="require('~/assets/image/video.png')"
-            alt=""
-            class="video-icon cursor-pointer"
-          />
+          <NuxtLink :to="'video/' + item.video_id">
+            <span class="dot text-center">{{ index + 1 }}</span>
+            <img :src="item.img" alt="" class="bg-img" />
+            <img
+              :src="require('~/assets/image/video.png')"
+              alt=""
+              class="video-icon cursor-pointer"
+            />
+          </NuxtLink>
         </div>
         <div
           class="title cursor-pointer video-card-cont-right text-cut-l3 flex align-center"

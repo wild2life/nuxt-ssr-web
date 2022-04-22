@@ -29,6 +29,15 @@
           :data="cardData"
           class="padding-top-lg margin-right-lg"
         ></DataCard>
+        <infinite-loading
+          v-if="cardData.length"
+          spinner="bubbles"
+          :identifier="infiniteId"
+          @infinite="infiniteScroll"
+        >
+          <span slot="no-more" class="padding-top"> 已经没有啦~~ </span>
+          <span slot="no-results" class="padding-top"> 暂无数据~~ </span>
+        </infinite-loading>
       </el-col>
       <el-col
         :xs="24"
@@ -51,12 +60,8 @@ export default {
     const { $axios } = app
     const [tabRes, hotRes, videoRes] = await Promise.all([
       $axios.get('industry'),
-      // $axios.get('slide'),
-      // $axios.get('side_flash_news'),
       $axios.get('side_hot_articles'),
       $axios.get('side_hot_videos'),
-      // $axios.get('side_hot_topics'),
-      // $axios.get('side_hot_words'),
     ])
     const cardRes = await $axios.get(
       `industry/${tabRes.data[0].industry_id}/articles`
@@ -67,13 +72,11 @@ export default {
         industry_id: item.industry_id.toString(),
       })),
       activeName: tabRes.data[0].industry_id.toString(),
-      // slideData: slideRes.data,
       cardData: cardRes.data.data,
-      // newsData: newsRes.data,
       hotArticleData: hotRes.data,
-      // hotTopicData: topicRes.data,
       hotVideoData: videoRes.data,
-      // hotWordData: wordRes.data,
+      page: 1,
+      infiniteId: +new Date(),
     }
   },
   computed: {
@@ -83,10 +86,31 @@ export default {
   },
   methods: {
     async handleChange() {
+      this.page = 1
+      this.infiniteId += 1
+      this.cardData = []
       const { data } = await this.$axios.get(
         `industry/${this.activeName}/articles`
       )
       this.cardData = data.data
+    },
+    infiniteScroll($state) {
+      setTimeout(() => {
+        this.page++ // next page
+        this.$axios
+          .get(`industry/${this.activeName}/articles?page=${this.page}`)
+          .then((resp) => {
+            if (resp.data.data.length > 1) {
+              resp.data.data.forEach((item) => this.cardData.push(item))
+              $state.loaded()
+            } else {
+              $state.complete()
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }, 500)
     },
   },
 }
@@ -111,6 +135,13 @@ export default {
   }
   ::v-deep .el-tabs__nav-wrap::after {
     background-color: transparent;
+  }
+}
+.data-card-wrapper {
+  height: 1173px - 60px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 </style>

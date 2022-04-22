@@ -8,7 +8,7 @@
     }"
   >
     <div v-if="isMobile" class="flex margin-lr padding-lr-xs padding-tb-lg">
-      <NuxtLink :to="'article/' + data.article_id">
+      <NuxtLink :to="'/article/' + data.article_id">
         <img :src="data.img" alt="" class="margin-left-sm" />
         <div
           class="flex flex-direction justify-between margin-right-sm flex-sub padding-left padding-tb-xs"
@@ -24,7 +24,7 @@
       </NuxtLink>
     </div>
     <div v-else>
-      <NuxtLink :to="'article/' + data.article_id">
+      <NuxtLink :to="'/article/' + data.article_id">
         <img :src="data.img" alt="" />
         <div class="title text-lg">{{ data.title }}</div>
         <div class="desc text-sm">{{ data.introduction }}</div>

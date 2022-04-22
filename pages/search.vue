@@ -9,6 +9,12 @@
           :data="list"
           class="padding-top-lg margin-right-lg"
         ></DataCard>
+        <infinite-loading
+          v-if="list.length"
+          spinner="bubbles"
+          @infinite="infiniteScroll"
+        >
+        </infinite-loading>
       </el-col>
       <el-col :xs="24" :sm="24" :md="8">
         <HotList :data="hotArticleData"></HotList>
@@ -19,8 +25,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'SearchPage',
   layout: 'default',
@@ -39,6 +43,7 @@ export default {
       })),
       hotArticleData: hotRes.data,
       hotVideoData: videoRes.data,
+      page: 1,
     }
   },
   computed: {
@@ -52,20 +57,31 @@ export default {
       return this.$route.query.search
     },
   },
-  watch: {
-    search() {
-      this.loadData()
-    },
-  },
+  watchQuery: ['search'],
   mounted() {},
   methods: {
-    async loadData() {
-      const { data } = await axios.get(`api/search/${this.search}`)
-      this.total = data.data.total
-      this.list = data.data.data.map((item) => ({
-        ...item,
-        tags: item.tags.split(','),
-      }))
+    infiniteScroll($state) {
+      setTimeout(() => {
+        this.page++ // next page
+        this.$axios
+          .get(`search/${this.search}?page=${this.page}`)
+          .then((resp) => {
+            if (resp.data.data.length > 1) {
+              resp.data.data.forEach((item) =>
+                this.list.push({
+                  ...item,
+                  tags: item.tags.split(','),
+                })
+              )
+              $state.loaded()
+            } else {
+              $state.complete()
+            }
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }, 500)
     },
   },
 }
