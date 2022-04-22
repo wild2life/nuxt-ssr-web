@@ -84,13 +84,16 @@ export default {
   name: 'VideoId',
   layout: 'default',
   async asyncData({ app, route }) {
-    const { $axios } = app
-    const [videoInfo] = await Promise.all([
+    const { $axios, store } = app
+    const [videoInfo, layout] = await Promise.all([
       $axios.get(`videos/${route.params.id}`),
+      $axios.get('layout'),
     ])
+    store.commit('setting/SET_LAYOUT', layout.data)
     return {
       videoInfo: videoInfo.data.info,
       list: videoInfo.data.list,
+      layout: layout.data,
       playerOptions: {
         playbackRates: [0.7, 1.0, 1.5, 2.0], // 播放速度
         autoplay: false, // 如果true,浏览器准备好时开始回放。
@@ -114,7 +117,15 @@ export default {
   },
   head() {
     return {
-      title: '视频',
+      title: this.layout.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.layout.description,
+        },
+        { hid: 'keyword', name: 'keyword', content: this.layout.keyword },
+      ],
     }
   },
   computed: {

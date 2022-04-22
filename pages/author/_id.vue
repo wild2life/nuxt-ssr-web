@@ -38,15 +38,31 @@ export default {
   name: 'AuthorId',
   layout: 'default',
   async asyncData({ app, route }) {
-    const { $axios } = app
-    const [cardRes] = await Promise.all([
+    const { $axios, store } = app
+    const [cardRes, layout] = await Promise.all([
       $axios.get(`author/${route.params.id}/articles`),
+      $axios.get('layout'),
     ])
+    store.commit('setting/SET_LAYOUT', layout.data)
     return {
       list: cardRes.data.articles.data,
       total: cardRes.data.articles.total,
       author: cardRes.data.author,
       page: 1,
+      layout: layout.data,
+    }
+  },
+  head() {
+    return {
+      title: this.layout.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.layout.description,
+        },
+        { hid: 'keyword', name: 'keyword', content: this.layout.keyword },
+      ],
     }
   },
   computed: {

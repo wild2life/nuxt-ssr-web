@@ -32,18 +32,34 @@ export default {
   name: 'VideoPage',
   layout: 'default',
   async asyncData({ app }) {
-    const { $axios } = app
-    const [hotRes, cardRes, videoRes] = await Promise.all([
+    const { $axios, store } = app
+    const [hotRes, cardRes, videoRes, layout] = await Promise.all([
       $axios.get('side_hot_articles'),
       $axios.get('videos'),
       $axios.get('side_hot_videos'),
+      $axios.get('layout'),
     ])
+    store.commit('setting/SET_LAYOUT', layout.data)
     return {
       list: cardRes.data.data,
       total: cardRes.data.total,
       hotArticleData: hotRes.data,
       hotVideoData: videoRes.data,
       page: 1,
+      layout: layout.data,
+    }
+  },
+  head() {
+    return {
+      title: this.layout.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.layout.description,
+        },
+        { hid: 'keyword', name: 'keyword', content: this.layout.keyword },
+      ],
     }
   },
   methods: {

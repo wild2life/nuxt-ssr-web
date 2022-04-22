@@ -70,25 +70,33 @@ export default {
   name: 'NewsId',
   layout: 'default',
   async asyncData({ app, route }) {
-    const { $axios } = app
-    const [hotRes, res] = await Promise.all([
+    const { $axios, store } = app
+    const [hotRes, res, layout] = await Promise.all([
       $axios.get('side_hot_articles'),
       $axios.get(`flash_news/${route.params.id}`),
+      $axios.get('layout'),
     ])
+    store.commit('setting/SET_LAYOUT', layout.data)
     return {
       data: {
         ...res.data,
         tags: res.data.tags.split(','),
       },
       hotArticleData: hotRes.data,
+      layout: layout.data,
     }
   },
   head() {
     return {
-      title: this.data.articles.tags,
-      // meta: [
-      //   { hid: 'keyword', name: 'keyword', content: this.data.articles.tags },
-      // ],
+      title: this.layout.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.layout.description,
+        },
+        { hid: 'keyword', name: 'keyword', content: this.layout.keyword },
+      ],
     }
   },
   computed: {

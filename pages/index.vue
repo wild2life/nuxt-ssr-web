@@ -43,7 +43,6 @@
             class="margin-top-sm"
             style="height: 194px"
           />
-          <!-- <img src="~/assets/image/banner4.png" alt="" class="margin-top-sm" /> -->
         </div>
       </el-col>
     </el-row>
@@ -118,20 +117,30 @@ export default {
   name: 'IndexPage',
   layout: 'default',
   async asyncData({ app }) {
-    const { $axios } = app
-    const [tabRes, slideRes, newsRes, hotRes, videoRes, topicRes, wordRes] =
-      await Promise.all([
-        $axios.get('industry'),
-        $axios.get('slide'),
-        $axios.get('side_flash_news'),
-        $axios.get('side_hot_articles'),
-        $axios.get('side_hot_videos'),
-        $axios.get('side_hot_topics'),
-        $axios.get('side_hot_words'),
-      ])
+    const { $axios, store } = app
+    const [
+      tabRes,
+      slideRes,
+      newsRes,
+      hotRes,
+      videoRes,
+      topicRes,
+      wordRes,
+      layout,
+    ] = await Promise.all([
+      $axios.get('industry'),
+      $axios.get('slide'),
+      $axios.get('side_flash_news'),
+      $axios.get('side_hot_articles'),
+      $axios.get('side_hot_videos'),
+      $axios.get('side_hot_topics'),
+      $axios.get('side_hot_words'),
+      $axios.get('layout'),
+    ])
     const cardRes = await $axios.get(
       `industry/${tabRes.data[0].industry_id}/articles`
     )
+    store.commit('setting/SET_LAYOUT', layout.data)
     return {
       list: tabRes.data.map((item) => ({
         name: item.name,
@@ -148,6 +157,20 @@ export default {
       hotWordData: wordRes.data,
       page: 1,
       infiniteId: +new Date(),
+      layout: layout.data,
+    }
+  },
+  head() {
+    return {
+      title: this.layout.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.layout.description,
+        },
+        { hid: 'keyword', name: 'keyword', content: this.layout.keyword },
+      ],
     }
   },
   computed: {

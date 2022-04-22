@@ -34,12 +34,30 @@ export default {
   name: 'ActivityPage',
   layout: 'default',
   async asyncData({ app }) {
-    const { $axios } = app
-    const { data } = await $axios.get('activities')
+    const { $axios, store } = app
+    const [{ data }, layout] = await Promise.all([
+      $axios.get('activities'),
+      $axios.get('layout'),
+    ])
+    store.commit('setting/SET_LAYOUT', layout.data)
     return {
       total: data.total,
       data: data.data,
       page: 1,
+      layout: layout.data,
+    }
+  },
+  head() {
+    return {
+      title: this.layout.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.layout.description,
+        },
+        { hid: 'keyword', name: 'keyword', content: this.layout.keyword },
+      ],
     }
   },
   computed: {

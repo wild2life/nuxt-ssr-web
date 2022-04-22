@@ -29,12 +29,14 @@ export default {
   name: 'SearchPage',
   layout: 'default',
   async asyncData({ app, query }) {
-    const { $axios } = app
-    const [hotRes, videoRes, searchRes] = await Promise.all([
+    const { $axios, store } = app
+    const [hotRes, videoRes, searchRes, layout] = await Promise.all([
       $axios.get('side_hot_articles'),
       $axios.get('side_hot_videos'),
       $axios.get(`search/${query.search}`),
+      $axios.get('layout'),
     ])
+    store.commit('setting/SET_LAYOUT', layout.data)
     return {
       total: searchRes.data.total,
       list: searchRes.data.data.map((item) => ({
@@ -44,6 +46,20 @@ export default {
       hotArticleData: hotRes.data,
       hotVideoData: videoRes.data,
       page: 1,
+      layout: layout.data,
+    }
+  },
+  head() {
+    return {
+      title: this.layout.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.layout.description,
+        },
+        { hid: 'keyword', name: 'keyword', content: this.layout.keyword },
+      ],
     }
   },
   computed: {
@@ -58,7 +74,6 @@ export default {
     },
   },
   watchQuery: ['search'],
-  mounted() {},
   methods: {
     infiniteScroll($state) {
       setTimeout(() => {

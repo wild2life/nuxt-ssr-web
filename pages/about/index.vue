@@ -1,10 +1,8 @@
 <template>
   <div class="about-container">
     <div class="banner">
-      <!-- <div class="banner-title">壹览商业丨洞见消费品牌的新未来</div> -->
       <div class="banner-title">{{ layout.title }}</div>
       <div class="banner-desc text-df">
-        <!-- 关注并研究大消费行情下的快销品、服饰、美妆、食品饮料、宠物及相关零售商。 -->
         {{ layout.description }}
       </div>
     </div>
@@ -86,10 +84,15 @@ export default {
   name: 'AboutPage',
   layout: 'default',
   async asyncData({ app }) {
-    const { $axios } = app
-    const { data } = await $axios.get('recruits')
+    const { $axios, store } = app
+    const [{ data }, layout] = await Promise.all([
+      $axios.get('recruits'),
+      $axios.get('layout'),
+    ])
+    store.commit('setting/SET_LAYOUT', layout.data)
     return {
       list: data,
+      layout: layout.data,
     }
   },
   data() {
@@ -107,10 +110,18 @@ export default {
       active: 1,
     }
   },
-  computed: {
-    layout() {
-      return this.$store.state.setting.layout
-    },
+  head() {
+    return {
+      title: this.layout.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.layout.description,
+        },
+        { hid: 'keyword', name: 'keyword', content: this.layout.keyword },
+      ],
+    }
   },
   methods: {
     handleClick(value) {

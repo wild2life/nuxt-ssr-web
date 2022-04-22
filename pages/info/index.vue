@@ -57,14 +57,16 @@ export default {
   name: 'InfoPage',
   layout: 'default',
   async asyncData({ app }) {
-    const { $axios } = app
-    const [tabRes, hotRes, videoRes] = await Promise.all([
+    const { $axios, store } = app
+    const [tabRes, hotRes, videoRes, layout] = await Promise.all([
       $axios.get('industry'),
       $axios.get('side_hot_articles'),
       $axios.get('side_hot_videos'),
+      $axios.get('layout'),
     ])
+    store.commit('setting/SET_LAYOUT', layout.data)
     const cardRes = await $axios.get(
-      `industry/${tabRes.data[0].industry_id}/articles`
+      `seek/industry/${tabRes.data[0].industry_id}/articles`
     )
     return {
       list: tabRes.data.map((item) => ({
@@ -77,6 +79,20 @@ export default {
       hotVideoData: videoRes.data,
       page: 1,
       infiniteId: +new Date(),
+      layout: layout.data,
+    }
+  },
+  head() {
+    return {
+      title: this.layout.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.layout.description,
+        },
+        { hid: 'keyword', name: 'keyword', content: this.layout.keyword },
+      ],
     }
   },
   computed: {
@@ -90,7 +106,7 @@ export default {
       this.infiniteId += 1
       this.cardData = []
       const { data } = await this.$axios.get(
-        `industry/${this.activeName}/articles`
+        `seek/industry/${this.activeName}/articles`
       )
       this.cardData = data.data
     },
@@ -98,7 +114,7 @@ export default {
       setTimeout(() => {
         this.page++ // next page
         this.$axios
-          .get(`industry/${this.activeName}/articles?page=${this.page}`)
+          .get(`seek/industry/${this.activeName}/articles?page=${this.page}`)
           .then((resp) => {
             if (resp.data.data.length > 1) {
               resp.data.data.forEach((item) => this.cardData.push(item))

@@ -2,7 +2,7 @@
   <div
     class="news-card-wrapper flex flex-direction align-center box-shadow border-radius padding-tb"
   >
-    <img :src="advertise.img" :alt="advertise.title" @click="jump" />
+    <img v-if="data.img" :src="data.img" :alt="data.description" />
     <div class="padding-tb text-xl">{{ data.name }}</div>
     <div class="text-lg color-666">
       共<span>{{ data.article_count }}</span
@@ -34,16 +34,6 @@ export default {
           name: '',
         }
       },
-    },
-  },
-  computed: {
-    advertise() {
-      return this.$store.state.setting.advertise
-    },
-  },
-  methods: {
-    jump() {
-      window.open(this.advertise.link)
     },
   },
 }

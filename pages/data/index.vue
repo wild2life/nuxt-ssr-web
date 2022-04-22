@@ -25,12 +25,14 @@ export default {
   name: 'DataPage',
   layout: 'default',
   async asyncData({ app }) {
-    const { $axios } = app
-    const [hotRes, cardRes, newsRes] = await Promise.all([
+    const { $axios, store } = app
+    const [hotRes, cardRes, newsRes, layout] = await Promise.all([
       $axios.get('side_hot_articles'),
       $axios.get('data'),
       $axios.get('side_flash_news'),
+      $axios.get('layout'),
     ])
+    store.commit('setting/SET_LAYOUT', layout.data)
     return {
       list: cardRes.data.data.map((item) => ({
         ...item,
@@ -40,6 +42,20 @@ export default {
       hotArticleData: hotRes.data,
       newsData: newsRes.data,
       page: 1,
+      layout: layout.data,
+    }
+  },
+  head() {
+    return {
+      title: this.layout.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.layout.description,
+        },
+        { hid: 'keyword', name: 'keyword', content: this.layout.keyword },
+      ],
     }
   },
   methods: {
